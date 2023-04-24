@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  server:
+    build:
+      context: .
+    command: npm run dev
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - ./:/server
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15.2-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  postgres_data:

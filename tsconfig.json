@@ -7,6 +7,6 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "declaration": true
-  }
-  // "include": ["server/**/*.ts"]
+  },
+  "include": ["server/**/*.ts"]
 }

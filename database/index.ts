@@ -13,40 +13,45 @@ export const connectToDatabase = () => {
   });
 };
 
-export const createTable = () => {
+export const createProductsTable = () => {
   const client = new Client();
   client.connect();
 
-  const text = `CREATE TABLE IF NOT EXISTS features (
-	id serial PRIMARY KEY,
-	product_id INTEGER,
-	feature VARCHAR (255) NOT NULL,
-	value VARCHAR (255) NOT NULL
+  const text = `CREATE TABLE IF NOT EXISTS products
+  (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR (255),
+    slogan VARCHAR (255),
+    description TEXT,
+    category VARCHAR (255),
+    default_price INTEGER
 );`;
 
   client
     .query(text)
     .then((res) => {
-      console.log(res.rows[0]);
+      createFeaturesTable();
       client.end();
     })
     .catch((e) => console.error(e.stack));
 };
 
-export const insertValues = (data: string[]) => {
+export const createFeaturesTable = () => {
   const client = new Client();
   client.connect();
 
-  const text = `INSERT INTO features VALUES ($1, $2, $3, $4)`;
-  const query = {
-    text,
-    data,
-  };
+  const text = `CREATE TABLE IF NOT EXISTS features
+  (
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER REFERENCES products,
+    feature VARCHAR (255) NOT NULL,
+    value VARCHAR (255) NOT NULL
+);`;
 
   client
-    .query(query)
+    .query(text)
     .then((res) => {
-      console.log(res.rows[0]);
+      client.end();
     })
     .catch((e) => console.error(e.stack));
 };

@@ -2,7 +2,11 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Request, Response } from 'express';
-import { connectToDatabase, createTable, insertValues } from '../database';
+import {
+  connectToDatabase,
+  createProductsTable,
+  createFeaturesTable,
+} from '../database';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -10,7 +14,7 @@ const PORT = process.env.PORT;
 app.use('/', async (req: Request, res: Response) => {
   try {
     connectToDatabase();
-    createTable();
+    createProductsTable();
     res.json({ message: 'hello' });
   } catch (err) {
     console.error(err);

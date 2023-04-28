@@ -1,11 +1,19 @@
 {
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 18",
+
+  "_version": "2.0.0",
+
   "compilerOptions": {
+    "lib": ["es2022"],
     "module": "commonjs",
+    "target": "es2022",
+
+    "strict": true,
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "./dist"
-  },
-  "lib": ["es2015"]
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  }
 }

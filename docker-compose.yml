@@ -21,9 +21,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
 
 volumes:
   postgres_data:

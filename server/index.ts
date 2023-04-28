@@ -1,14 +1,16 @@
-import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import { testConnection } from '../database';
 dotenv.config();
+
+import express, { Request, Response } from 'express';
+import { connectToDatabase, createTable, insertValues } from '../database';
 
 const app = express();
 const PORT = process.env.PORT;
 
-app.use('/', (req: Request, res: Response) => {
+app.use('/', async (req: Request, res: Response) => {
   try {
-    testConnection();
+    connectToDatabase();
+    createTable();
     res.json({ message: 'hello' });
   } catch (err) {
     console.error(err);

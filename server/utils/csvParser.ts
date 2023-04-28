@@ -37,8 +37,7 @@ const transformer = transform((data) => {
 readStream
   .pipe(csv(['id', 'product_id', 'feature', 'value']))
   .pipe(transformer)
-  .pipe(writeStream)
-  .on('end', () => console.log('finished!'));
+  .pipe(writeStream);
 
 // const old = transform((data) => {
 //   const results: string[] = [];

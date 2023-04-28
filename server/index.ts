@@ -2,11 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Request, Response } from 'express';
-import {
-  connectToDatabase,
-  createProductsTable,
-  createFeaturesTable,
-} from '../database';
+import { connectToDatabase, createProductsTable } from '../database';
 
 const app = express();
 const PORT = process.env.PORT;

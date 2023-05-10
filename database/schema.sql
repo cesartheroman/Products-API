@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS photos;
 
 CREATE TABLE photos (
   id SERIAL PRIMARY KEY,
-  style_id INTEGER REFERENCES styles,
+  style_id INTEGER,
   url TEXT,
   thumbnail_url TEXT
 );

@@ -1,11 +1,12 @@
 import express, { Request, Response } from 'express';
-import morgan from 'morgan';
 import cors from 'cors';
+import morgan from 'morgan';
 
 import { connectToDatabase } from '../database';
 
 const app = express();
 
+/* Global middlewares */
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());

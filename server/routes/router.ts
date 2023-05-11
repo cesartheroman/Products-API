@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
 import {
-  listProducts,
-  getProduct,
+  getProductsList,
+  getOneProduct,
   getProductStyles,
   getRelatedProducts,
   createProduct,
@@ -12,16 +12,18 @@ import {
 
 const router = Router();
 
-router.get('/products/list', listProducts);
+router.get('/list', getProductsList);
 
-router.get('/products/:product_id', getProduct);
+router.get('/:product_id', getOneProduct);
 
-router.get('/products/:product_id/styles', getProductStyles);
+router.get('/:product_id/styles', getProductStyles);
 
-router.get('/products/:product_id/related', getRelatedProducts);
+router.get('/:product_id/related', getRelatedProducts);
 
-router.post('/products', createProduct);
+router.post('/', createProduct);
 
-router.put('/products/:product_id', updateProduct);
+router.put('/:product_id', updateProduct);
 
-router.delete('/products/:product_id', deleteProduct);
+router.delete('/:product_id', deleteProduct);
+
+export default router;

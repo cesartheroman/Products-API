@@ -5,11 +5,11 @@ import { transform } from 'csv';
 import csv from 'csv-parser';
 
 const readStream = fs.createReadStream(
-  path.join(__dirname + '../../../data/products.csv')
+  path.join(__dirname, '../data/products.csv')
 );
 
 const writeStream = fs.createWriteStream(
-  path.join(__dirname + '../../../data/clean_products.csv')
+  path.join(__dirname, '../data/clean_products.csv')
 );
 
 const transformer = transform((data) => {
@@ -27,7 +27,7 @@ const transformer = transform((data) => {
     let { id, name, slogan, description, category, default_price } = productObj;
     default_price = default_price.replace(/\D/g, '');
     result.push(
-      `${id}, "${name}", "${slogan}", "${description}", "${category}", ${default_price}\n`
+      `${id},"${name}","${slogan}","${description}","${category}",${default_price}\n`
     );
   }
 

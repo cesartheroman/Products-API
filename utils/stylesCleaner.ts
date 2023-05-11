@@ -5,11 +5,11 @@ import csv from 'csv-parser';
 import { transform } from 'csv';
 
 const readStream = fs.createReadStream(
-  path.join(__dirname + '../../../data/styles.csv')
+  path.join(__dirname, '../data/styles.csv')
 );
 
 const writeStream = fs.createWriteStream(
-  path.join(__dirname + '../../../data/clean_styles.csv')
+  path.join(__dirname, '../data/clean_styles.csv')
 );
 
 const transformer = transform((data) => {

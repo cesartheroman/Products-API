@@ -5,11 +5,11 @@ import { transform } from 'csv';
 import csv from 'csv-parser';
 
 const readStream = fs.createReadStream(
-  path.join(__dirname + '../../../data/features.csv')
+  path.join(__dirname, '../data/features.csv')
 );
 
 const writeStream = fs.createWriteStream(
-  path.join(__dirname + '../../../data/clean_features.csv')
+  path.join(__dirname, '../data/clean_featureTest.csv')
 );
 
 const transformer = transform((data) => {
@@ -28,7 +28,7 @@ const transformer = transform((data) => {
     if (value.includes(',')) {
       value = value.split(',').join('');
     }
-    result.push(`${id}, ${product_id}, ${feature}, ${value}\n`);
+    result.push(`${id},${product_id},${feature},${value}\n`);
   }
 
   return result.join('\n');

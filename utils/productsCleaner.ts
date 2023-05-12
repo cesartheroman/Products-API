@@ -1,15 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import csv from 'csv-parser';
 import { transform } from 'csv';
+import csv from 'csv-parser';
 
 const readStream = fs.createReadStream(
-  path.join(__dirname + '../../../data/styles.csv')
+  path.join(__dirname, '../data/products.csv')
 );
 
 const writeStream = fs.createWriteStream(
-  path.join(__dirname + '../../../data/clean_styles.csv')
+  path.join(__dirname, '../data/clean_products.csv')
 );
 
 const transformer = transform((data) => {
@@ -22,12 +22,12 @@ const transformer = transform((data) => {
   for (let row of stringifiedData) {
     jsonParsedData.push(JSON.parse(row));
   }
-  for (let stylesObj of jsonParsedData) {
-    let { id, product_id, name, sale_price, original_price, default_style } =
-      stylesObj;
 
+  for (let productObj of jsonParsedData) {
+    let { id, name, slogan, description, category, default_price } = productObj;
+    default_price = default_price.replace(/\D/g, '');
     result.push(
-      `${id},${product_id},${name},${sale_price},${original_price},${default_style}\n`
+      `${id},"${name}","${slogan}","${description}","${category}",${default_price}\n`
     );
   }
 
@@ -37,16 +37,9 @@ const transformer = transform((data) => {
 readStream
   .pipe(
     csv({
-      mapHeaders: ({ header }) => {
-        if (header === 'productId') {
-          return 'product_id';
-        }
-        return header;
-      },
+      mapHeaders: ({ header }) => header.trim(),
     })
   )
   .pipe(transformer)
   .pipe(writeStream)
-  .on('finish', () => {
-    console.log('finished');
-  });
+  .on('finish', () => console.log('finished'));

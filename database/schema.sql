@@ -26,7 +26,7 @@ CREATE TABLE styles (
   name VARCHAR (255) NOT NULL,
   sale_price INTEGER NOT NULL,
   original_price INTEGER NOT NULL,
-  default_style boolean
+  default_style INTEGER
 );
 
 DROP TABLE IF EXISTS related;
@@ -44,4 +44,13 @@ CREATE TABLE photos (
   style_id INTEGER,
   url TEXT,
   thumbnail_url TEXT
+);
+
+DROP TABLE IF EXISTS skus;
+
+CREATE TABLE skus (
+  id SERIAL PRIMARY KEY,
+  style_id INTEGER,
+  size VARCHAR (50) NOT NULL,
+  quantity INTEGER
 );

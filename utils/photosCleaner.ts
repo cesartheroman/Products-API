@@ -4,11 +4,10 @@ import path from 'node:path';
 import { transform, parse } from 'csv';
 
 const readStream = fs.createReadStream(
-  path.join(__dirname + '../../../data/photos.csv')
+  path.join(__dirname, '../data/photos.csv')
 );
-
 const writeStream = fs.createWriteStream(
-  path.join(__dirname + '../../../data/clean_photos.csv')
+  path.join(__dirname, '../data/clean_photos.csv')
 );
 
 const transformer = transform((data) => {

@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import {
-  queryProductsList,
-  queryProduct,
-  queryProductStyles,
-  queryRelatedProoducts,
-  queryNewProduct,
-  queryDeleteProduct,
+  readProductsList,
+  readProductById,
+  readProductStyles,
+  readRelatedProoducts,
+  createNewProduct,
+  updateProductById,
+  deleteProductById,
 } from '../models';
 
 //GET All Products
@@ -14,7 +15,7 @@ export const getProductsList = async (req: Request, res: Response) => {
   const count = Number(req.query.count) || undefined;
 
   try {
-    const productsList = await queryProductsList(page, count);
+    const productsList = await readProductsList(page, count);
 
     res.status(200).send(productsList);
   } catch (err) {
@@ -27,9 +28,9 @@ export const getOneProduct = async (req: Request, res: Response) => {
   const { product_id } = req.params;
 
   try {
-    const product = await queryProduct(parseInt(product_id));
+    const response = await readProductById(parseInt(product_id));
 
-    res.status(200).send(product);
+    res.status(200).send(response);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -37,7 +38,12 @@ export const getOneProduct = async (req: Request, res: Response) => {
 
 //GET Product Styles
 export const getProductStyles = async (req: Request, res: Response) => {
+  const { product_id } = req.params;
+
   try {
+    const response = await readProductStyles(parseInt(product_id));
+
+    res.status(200).send(response);
   } catch (err) {
     res.status(500).send(err);
   }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server/index.ts",
     "build": "tsc -p tsconfig.json",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "start": "node dist/index.js"
   },
   "keywords": [],

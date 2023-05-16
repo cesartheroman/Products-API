@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
+
 import {
   readProductsList,
   readProductById,
   readProductStyles,
-  readRelatedProoducts,
+  readRelatedProoductIds,
   createNewProduct,
   updateProductById,
   deleteProductById,
 } from '../models';
+import { Features } from '../models/definitions';
 
 //GET All Products
 export const getProductsList = async (req: Request, res: Response) => {
-  const page = Number(req.query.page) || undefined;
-  const count = Number(req.query.count) || undefined;
+  const page = Number(req.query.page) || 1;
+  const count = Number(req.query.count) || 5;
 
   try {
     const productsList = await readProductsList(page, count);
@@ -50,8 +52,17 @@ export const getProductStyles = async (req: Request, res: Response) => {
 };
 
 //GET Related Products
-export const getRelatedProducts = async (req: Request, res: Response) => {
+export const getRelatedProductIds = async (req: Request, res: Response) => {
+  const { product_id } = req.params;
+
   try {
+    const [arrayToJsonObject] = await readRelatedProoductIds(
+      parseInt(product_id)
+    );
+
+    const relatedIds = [...arrayToJsonObject['array_to_json']];
+
+    res.status(200).send(relatedIds);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -59,6 +70,22 @@ export const getRelatedProducts = async (req: Request, res: Response) => {
 
 //POST Create Product
 export const createProduct = async (req: Request, res: Response) => {
+  const { name, slogan, description, category, default_price, features } =
+    req.query;
+  const parsedFeatures: Features[] = JSON.parse(features as string);
+
+  const newProduct = {
+    name: name as string,
+    slogan: slogan as string,
+    description: description as string,
+    category: category as string,
+    default_price: parseInt(default_price as string),
+    features: parsedFeatures,
+  };
+
+  const product = await createNewProduct(newProduct);
+
+  res.status(201).send(product);
   try {
   } catch (err) {
     res.status(500).send(err);

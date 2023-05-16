@@ -4,7 +4,7 @@ import {
   getProductsList,
   getOneProduct,
   getProductStyles,
-  getRelatedProducts,
+  getRelatedProductIds,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -18,7 +18,7 @@ router.get('/:product_id', getOneProduct);
 
 router.get('/:product_id/styles', getProductStyles);
 
-router.get('/:product_id/related', getRelatedProducts);
+router.get('/:product_id/related', getRelatedProductIds);
 
 router.post('/', createProduct);
 

@@ -72,21 +72,22 @@ export const getRelatedProductIds = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
   const { name, slogan, description, category, default_price, features } =
     req.query;
-  const parsedFeatures: Features[] = JSON.parse(features as string);
 
-  const newProduct = {
-    name: name as string,
-    slogan: slogan as string,
-    description: description as string,
-    category: category as string,
-    default_price: parseInt(default_price as string),
-    features: parsedFeatures,
-  };
-
-  const product = await createNewProduct(newProduct);
-
-  res.status(201).send(product);
   try {
+    const parsedFeatures: Features[] = JSON.parse(features as string);
+
+    const newProduct = {
+      name: name as string,
+      slogan: slogan as string,
+      description: description as string,
+      category: category as string,
+      default_price: parseInt(default_price as string),
+      features: parsedFeatures,
+    };
+
+    const createdProduct = await createNewProduct(newProduct);
+
+    res.status(201).send(createdProduct);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -102,7 +103,12 @@ export const updateProduct = async (req: Request, res: Response) => {
 
 //DELETE Product
 export const deleteProduct = async (req: Request, res: Response) => {
+  const { product_id } = req.params;
+
   try {
+    const deletedProduct = await deleteProductById(parseInt(product_id));
+
+    res.status(200).send(deletedProduct);
   } catch (err) {
     res.status(500).send(err);
   }

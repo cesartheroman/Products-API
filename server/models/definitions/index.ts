@@ -4,7 +4,7 @@ export interface Features {
 }
 
 export interface Product {
-  id: number;
+  product_id: number;
   name: string;
   slogan: string;
   description: string;
@@ -19,6 +19,7 @@ export interface NewProduct {
   description: string;
   category: string;
   default_price: number;
+  features: Features[];
 }
 
 export interface ArrayToJsonObject {

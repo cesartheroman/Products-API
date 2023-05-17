@@ -10,10 +10,12 @@ export const readProductsList = async (
   const client = await db.connect();
 
   try {
-    const query = 'SELECT * FROM products ORDER BY id asc LIMIT $1 OFFSET $2;';
-    const values = [count, page * count - count];
+    const query = {
+      text: 'SELECT * FROM products ORDER BY id asc LIMIT $1 OFFSET $2;',
+      values: [count, page * count - count],
+    };
 
-    const { rows }: { rows: Product[] } = await client.query(query, values);
+    const { rows }: { rows: Product[] } = await client.query(query);
 
     return rows;
   } catch (err) {
@@ -31,10 +33,11 @@ export const readProductById = async (
   const client = await db.connect();
 
   try {
-    const query = `SELECT *, 
-    (
-      SELECT array_to_json(array_agg(feature_cols)
-    ) 
+    const query = {
+      text: `SELECT *, 
+      (
+        SELECT array_to_json(array_agg(feature_cols)
+      ) 
       FROM 
       (
         SELECT feature, value 
@@ -43,10 +46,11 @@ export const readProductById = async (
       ) 
       AS features 
       FROM products 
-      WHERE products.product_id = $1;`;
-    const values = [product_id];
+      WHERE products.product_id = $1;`,
+      values: [product_id],
+    };
 
-    const { rows }: { rows: Product[] } = await db.query(query, values);
+    const { rows }: { rows: Product[] } = await db.query(query);
 
     return rows;
   } catch (err) {
@@ -62,7 +66,8 @@ export const readProductStyles = async (product_id: number) => {
   const client = await db.connect();
 
   try {
-    const query = `SELECT row_to_json(t)
+    const query = {
+      text: `SELECT row_to_json(t)
       FROM (
         SELECT products.product_id,
           ( 
@@ -88,11 +93,11 @@ export const readProductStyles = async (product_id: number) => {
         ) AS results
         FROM products
         WHERE products.product_id = $1
-      ) t;`;
+      ) t;`,
+      values: [product_id],
+    };
 
-    const values = [product_id];
-
-    const { rows } = await db.query(query, values);
+    const { rows } = await db.query(query);
 
     return rows;
   } catch (err) {
@@ -110,13 +115,12 @@ export const readRelatedProoductIds = async (
   const client = await db.connect();
 
   try {
-    const query = `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id=$1`;
-    const values = [product_id];
+    const query = {
+      text: `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id=$1`,
+      values: [product_id],
+    };
 
-    const { rows }: { rows: ArrayToJsonObject[] } = await client.query(
-      query,
-      values
-    );
+    const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
 
     return rows;
   } catch (err) {
@@ -127,8 +131,10 @@ export const readRelatedProoductIds = async (
   }
 };
 
-//Create Product
-export const createNewProduct = async (newProduct: NewProduct) => {
+//Create Product TODO: OPTIMIZE
+export const createNewProduct = async (
+  newProduct: NewProduct
+): Promise<Product[]> => {
   const client = await db.connect();
 
   try {
@@ -146,7 +152,6 @@ export const createNewProduct = async (newProduct: NewProduct) => {
     const { rows }: { rows: Product[] } = await client.query(productQuery);
 
     const [createdProduct] = rows;
-    console.log('createdProduct:', createdProduct);
 
     const [featuresObj] = newProduct.features;
 
@@ -171,10 +176,17 @@ export const createNewProduct = async (newProduct: NewProduct) => {
 };
 
 //Update Product
-export const updateProductById = async () => {
+export const updateProductById = async (product_id: number) => {
   const client = await db.connect();
 
   try {
+    //TODO:
+    // const query = {
+    //   text: 'UPDATE product SET',
+    //   values: [product_id],
+    // };
+    // const { rows }: { rows: Product[] } = await client.query(query);
+    // return rows;
   } catch (err) {
     console.log('Error executing query', err);
     return [];
@@ -183,20 +195,24 @@ export const updateProductById = async () => {
   }
 };
 
-//DELETE Product
-export const deleteProductById = async (product_id: number) => {
+//DELETE Product TODO: OPTIMIZE
+export const deleteProductById = async (
+  product_id: number
+): Promise<Product[]> => {
   const client = await db.connect();
 
   try {
-    const query = 'DELETE FROM products WHERE product_id=$1 RETURNING *';
-    const values = [product_id];
+    const query = {
+      text: 'DELETE FROM products WHERE product_id=$1 RETURNING *',
+      values: [product_id],
+    };
 
-    const { rows }: { rows: Product[] } = await client.query(query, values);
+    const { rows }: { rows: Product[] } = await client.query(query);
 
     return rows;
   } catch (err) {
     console.log('Error executing query', err);
-    return err;
+    return [];
   } finally {
     client.release();
   }

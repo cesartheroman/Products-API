@@ -51,7 +51,7 @@ export const getProductStyles = async (req: Request, res: Response) => {
   }
 };
 
-//GET Related Products
+//GET Related ProductIds
 export const getRelatedProductIds = async (req: Request, res: Response) => {
   const { product_id } = req.params;
 

@@ -9,7 +9,7 @@ import {
   updateProductById,
   deleteProductById,
 } from '../models';
-import { Features } from '../models/definitions';
+import { Features, Product } from '../models/definitions';
 
 //GET All Products
 export const getProductsList = async (req: Request, res: Response) => {
@@ -95,7 +95,27 @@ export const createProduct = async (req: Request, res: Response) => {
 
 //PUT Update Product
 export const updateProduct = async (req: Request, res: Response) => {
+  const { product_id } = req.params;
+
+  const { name, slogan, description, category, default_price } = req.body;
+
   try {
+    const product = await readProductById(parseInt(product_id as string));
+
+    if (product.length === 0) throw new Error('Product does not exist');
+
+    const productToBeUpdated: Product = {
+      product_id: parseInt(product_id as string),
+      name: name as string,
+      slogan: slogan as string,
+      description: description as string,
+      category: category as string,
+      default_price: parseInt(default_price as string),
+    };
+
+    const updatedProduct = await updateProductById(productToBeUpdated);
+
+    res.status(200).send(updatedProduct);
   } catch (err) {
     res.status(500).send(err);
   }

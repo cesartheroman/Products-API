@@ -10,7 +10,7 @@ export interface Product {
   description: string;
   category: string;
   default_price: number;
-  features: Features[];
+  features?: Features[];
 }
 
 export interface NewProduct {

@@ -19,7 +19,7 @@ export const readProductsList = async (
 
     return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: readProductsList', err);
     return [];
   } finally {
     client.release();
@@ -54,7 +54,7 @@ export const readProductById = async (
 
     return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: readProductById', err);
     return [];
   } finally {
     client.release();
@@ -101,7 +101,7 @@ export const readProductStyles = async (product_id: number) => {
 
     return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: readProductStyles', err);
     return [];
   } finally {
     client.release();
@@ -124,7 +124,7 @@ export const readRelatedProoductIds = async (
 
     return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: readRelatedProoductIds', err);
     return [];
   } finally {
     client.release();
@@ -168,27 +168,35 @@ export const createNewProduct = async (
 
     return [createdProduct];
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: createNewProduct', err);
     return [];
   } finally {
     client.release();
   }
 };
 
-//Update Product
-export const updateProductById = async (product_id: number) => {
+//Update Product TODO: OPTIMIZE
+export const updateProductById = async (productToBeUpdated: Product) => {
   const client = await db.connect();
 
   try {
-    //TODO:
-    // const query = {
-    //   text: 'UPDATE product SET',
-    //   values: [product_id],
-    // };
-    // const { rows }: { rows: Product[] } = await client.query(query);
-    // return rows;
+    const productQuery = {
+      text: 'UPDATE products SET (name, slogan, description, category, default_price) = ($1, $2, $3, $4, $5) WHERE product_id=$6 RETURNING *',
+      values: [
+        productToBeUpdated.name,
+        productToBeUpdated.slogan,
+        productToBeUpdated.description,
+        productToBeUpdated.category,
+        productToBeUpdated.default_price,
+        productToBeUpdated.product_id,
+      ],
+    };
+
+    const { rows }: { rows: Product[] } = await client.query(productQuery);
+
+    return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: updateProductById', err);
     return [];
   } finally {
     client.release();
@@ -211,7 +219,7 @@ export const deleteProductById = async (
 
     return rows;
   } catch (err) {
-    console.log('Error executing query', err);
+    console.log('Error executing query: deleteProductById', err);
     return [];
   } finally {
     client.release();

@@ -11,8 +11,8 @@ export const readProductsList = async (
 
   try {
     const query = {
-      text: 'SELECT * FROM products ORDER BY id asc LIMIT $1 OFFSET $2;',
-      values: [count, page * count - count],
+      text: 'SELECT * FROM products WHERE product_id > $1 ORDER BY product_id LIMIT $2',
+      values: [page * count - count, count],
     };
 
     const { rows }: { rows: Product[] } = await client.query(query);
@@ -42,7 +42,7 @@ export const readProductById = async (
       (
         SELECT feature, value 
           FROM features 
-            WHERE features.product_id = products.product_id) feature_cols
+            WHERE features.product_id = $1) feature_cols
       ) 
       AS features 
       FROM products 
@@ -88,7 +88,7 @@ export const readProductStyles = async (product_id: number) => {
                 WHERE skus.styles_id = styles.product_id
               ) AS skus
             FROM styles
-            WHERE styles.product_id = products.product_id
+            WHERE styles.product_id = $1
           ) results_col
         ) AS results
         FROM products
@@ -131,7 +131,7 @@ export const readRelatedProoductIds = async (
   }
 };
 
-//Create Product TODO: OPTIMIZE
+//Create Product
 export const createNewProduct = async (
   newProduct: NewProduct
 ): Promise<Product[]> => {
@@ -175,7 +175,7 @@ export const createNewProduct = async (
   }
 };
 
-//Update Product TODO: OPTIMIZE
+//Update Product
 export const updateProductById = async (productToBeUpdated: Product) => {
   const client = await db.connect();
 
@@ -203,7 +203,7 @@ export const updateProductById = async (productToBeUpdated: Product) => {
   }
 };
 
-//DELETE Product TODO: OPTIMIZE
+//DELETE Product
 export const deleteProductById = async (
   product_id: number
 ): Promise<Product[]> => {

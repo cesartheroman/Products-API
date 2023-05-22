@@ -2,7 +2,7 @@ import db from '../../database';
 
 import { Product, ArrayToJsonObject, NewProduct } from './definitions';
 
-//Read All Products TODO: OPTIMIZE
+//Read All Products
 export const readProductsList = async (
   page: number,
   count: number
@@ -26,7 +26,7 @@ export const readProductsList = async (
   }
 };
 
-//Read One Product TODO: OPTIMIZE
+//Read One Product
 export const readProductById = async (
   product_id: number
 ): Promise<Product[]> => {
@@ -61,7 +61,7 @@ export const readProductById = async (
   }
 };
 
-//Read Product Styles TODO: OPTIMIZE
+//Read Product Styles
 export const readProductStyles = async (product_id: number) => {
   const client = await db.connect();
 
@@ -108,7 +108,7 @@ export const readProductStyles = async (product_id: number) => {
   }
 };
 
-//Read Related Products TODO: OPTIMIZE
+//Read Related Products
 export const readRelatedProoductIds = async (
   product_id: number
 ): Promise<ArrayToJsonObject[]> => {

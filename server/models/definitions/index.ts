@@ -1,14 +1,27 @@
-export interface ProductsListProps {
-  count?: number;
-  page?: number;
+export interface Features {
+  feature: string;
+  value: string;
 }
 
 export interface Product {
-  id: number;
+  product_id: number;
   name: string;
   slogan: string;
   description: string;
   category: string;
   default_price: number;
-  features?: Record<string, string>[];
+  features?: Features[];
+}
+
+export interface NewProduct {
+  name: string;
+  slogan: string;
+  description: string;
+  category: string;
+  default_price: number;
+  features: Features[];
+}
+
+export interface ArrayToJsonObject {
+  array_to_json: number[];
 }

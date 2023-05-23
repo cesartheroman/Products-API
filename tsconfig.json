@@ -6,6 +6,7 @@
   "_version": "2.0.0",
 
   "compilerOptions": {
+    "outDir": "dist",
     "lib": ["es2022"],
     "module": "commonjs",
     "target": "es2022",

@@ -1,0 +1,848 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Retrieves the list of products.": 846,
+      "vusers.created": 3330,
+      "http.requests": 3330,
+      "http.codes.200": 3330,
+      "http.responses": 3330,
+      "vusers.failed": 0,
+      "vusers.completed": 3330,
+      "vusers.created_by_name.Returns all product level information for a specified product id.": 807,
+      "vusers.created_by_name.Returns the all styles available for the given product.": 828,
+      "vusers.created_by_name.Returns the ids of products related to the product specified.": 849
+    },
+    "rates": {
+      "http.request_rate": 50
+    },
+    "firstCounterAt": 1684853496827,
+    "firstHistogramAt": 1684853496902,
+    "lastCounterAt": 1684853586143,
+    "lastHistogramAt": 1684853586143,
+    "firstMetricAt": 1684853496827,
+    "lastMetricAt": 1684853586143,
+    "period": 1684853580000,
+    "summaries": {
+      "http.response_time": {
+        "min": 1,
+        "max": 173,
+        "count": 3330,
+        "p50": 5,
+        "median": 5,
+        "p75": 7.9,
+        "p90": 10.9,
+        "p95": 15,
+        "p99": 48.9,
+        "p999": 113.3
+      },
+      "vusers.session_length": {
+        "min": 2.7,
+        "max": 175.5,
+        "count": 3330,
+        "p50": 6.9,
+        "median": 6.9,
+        "p75": 10.3,
+        "p90": 17.3,
+        "p95": 24.8,
+        "p99": 59.7,
+        "p999": 125.2
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 1,
+        "max": 173,
+        "count": 3330,
+        "p50": 5,
+        "median": 5,
+        "p75": 7.9,
+        "p90": 10.9,
+        "p95": 15,
+        "p99": 48.9,
+        "p999": 113.3
+      },
+      "vusers.session_length": {
+        "min": 2.7,
+        "max": 175.5,
+        "count": 3330,
+        "p50": 6.9,
+        "median": 6.9,
+        "p75": 10.3,
+        "p90": 17.3,
+        "p95": 24.8,
+        "p99": 59.7,
+        "p999": 125.2
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Retrieves the list of products.": 3,
+        "vusers.created": 4,
+        "http.requests": 4,
+        "http.codes.200": 4,
+        "http.responses": 4,
+        "vusers.failed": 0,
+        "vusers.completed": 4,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 1
+      },
+      "rates": {
+        "http.request_rate": 1
+      },
+      "firstCounterAt": 1684853496827,
+      "firstHistogramAt": 1684853496902,
+      "lastCounterAt": 1684853499852,
+      "lastHistogramAt": 1684853499852,
+      "firstMetricAt": 1684853496827,
+      "lastMetricAt": 1684853499852,
+      "period": "1684853490000",
+      "http.request_rate": null,
+      "summaries": {
+        "http.response_time": {
+          "min": 5,
+          "max": 61,
+          "count": 4,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 6.7,
+          "max": 76.9,
+          "count": 4,
+          "p50": 10.7,
+          "median": 10.7,
+          "p75": 27.4,
+          "p90": 27.4,
+          "p95": 27.4,
+          "p99": 27.4,
+          "p999": 27.4
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 5,
+          "max": 61,
+          "count": 4,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 6.7,
+          "max": 76.9,
+          "count": 4,
+          "p50": 10.7,
+          "median": 10.7,
+          "p75": 27.4,
+          "p90": 27.4,
+          "p95": 27.4,
+          "p99": 27.4,
+          "p999": 27.4
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Returns the all styles available for the given product.": 2,
+        "vusers.created": 10,
+        "http.requests": 10,
+        "http.codes.200": 10,
+        "http.responses": 10,
+        "vusers.failed": 0,
+        "vusers.completed": 10,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 2,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 2,
+        "vusers.created_by_name.Retrieves the list of products.": 4
+      },
+      "rates": {
+        "http.request_rate": 1
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853500824,
+      "firstHistogramAt": 1684853500842,
+      "lastCounterAt": 1684853509830,
+      "lastHistogramAt": 1684853509830,
+      "firstMetricAt": 1684853500824,
+      "lastMetricAt": 1684853509830,
+      "period": "1684853500000",
+      "summaries": {
+        "http.response_time": {
+          "min": 3,
+          "max": 15,
+          "count": 10,
+          "p50": 6,
+          "median": 6,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 8.9,
+          "p99": 8.9,
+          "p999": 8.9
+        },
+        "vusers.session_length": {
+          "min": 5.1,
+          "max": 17.8,
+          "count": 10,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 10.7,
+          "p90": 12.1,
+          "p95": 12.1,
+          "p99": 12.1,
+          "p999": 12.1
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 3,
+          "max": 15,
+          "count": 10,
+          "p50": 6,
+          "median": 6,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 8.9,
+          "p99": 8.9,
+          "p999": 8.9
+        },
+        "vusers.session_length": {
+          "min": 5.1,
+          "max": 17.8,
+          "count": 10,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 10.7,
+          "p90": 12.1,
+          "p95": 12.1,
+          "p99": 12.1,
+          "p999": 12.1
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Returns the all styles available for the given product.": 3,
+        "vusers.created": 10,
+        "http.requests": 10,
+        "http.codes.200": 10,
+        "http.responses": 10,
+        "vusers.failed": 0,
+        "vusers.completed": 10,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 1,
+        "vusers.created_by_name.Retrieves the list of products.": 3,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 3
+      },
+      "rates": {
+        "http.request_rate": 1
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853510825,
+      "firstHistogramAt": 1684853510833,
+      "lastCounterAt": 1684853519835,
+      "lastHistogramAt": 1684853519835,
+      "firstMetricAt": 1684853510825,
+      "lastMetricAt": 1684853519835,
+      "period": "1684853510000",
+      "summaries": {
+        "http.response_time": {
+          "min": 5,
+          "max": 9,
+          "count": 10,
+          "p50": 7,
+          "median": 7,
+          "p75": 7.9,
+          "p90": 7.9,
+          "p95": 7.9,
+          "p99": 7.9,
+          "p999": 7.9
+        },
+        "vusers.session_length": {
+          "min": 7,
+          "max": 10.5,
+          "count": 10,
+          "p50": 9.1,
+          "median": 9.1,
+          "p75": 9.3,
+          "p90": 10.1,
+          "p95": 10.1,
+          "p99": 10.1,
+          "p999": 10.1
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 5,
+          "max": 9,
+          "count": 10,
+          "p50": 7,
+          "median": 7,
+          "p75": 7.9,
+          "p90": 7.9,
+          "p95": 7.9,
+          "p99": 7.9,
+          "p999": 7.9
+        },
+        "vusers.session_length": {
+          "min": 7,
+          "max": 10.5,
+          "count": 10,
+          "p50": 9.1,
+          "median": 9.1,
+          "p75": 9.3,
+          "p90": 10.1,
+          "p95": 10.1,
+          "p99": 10.1,
+          "p999": 10.1
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Retrieves the list of products.": 8,
+        "vusers.created": 43,
+        "http.requests": 43,
+        "http.codes.200": 43,
+        "http.responses": 43,
+        "vusers.failed": 0,
+        "vusers.completed": 43,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 18,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 5,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 12
+      },
+      "rates": {
+        "http.request_rate": 13
+      },
+      "firstCounterAt": 1684853520825,
+      "firstHistogramAt": 1684853520831,
+      "lastCounterAt": 1684853529989,
+      "lastHistogramAt": 1684853529989,
+      "firstMetricAt": 1684853520825,
+      "lastMetricAt": 1684853529989,
+      "period": "1684853520000",
+      "http.request_rate": null,
+      "summaries": {
+        "http.response_time": {
+          "min": 3,
+          "max": 72,
+          "count": 43,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 12.1,
+          "p90": 16,
+          "p95": 16.9,
+          "p99": 43.4,
+          "p999": 43.4
+        },
+        "vusers.session_length": {
+          "min": 4.6,
+          "max": 74.8,
+          "count": 43,
+          "p50": 13.3,
+          "median": 13.3,
+          "p75": 19.5,
+          "p90": 27.9,
+          "p95": 29.7,
+          "p99": 49.9,
+          "p999": 49.9
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 3,
+          "max": 72,
+          "count": 43,
+          "p50": 7.9,
+          "median": 7.9,
+          "p75": 12.1,
+          "p90": 16,
+          "p95": 16.9,
+          "p99": 43.4,
+          "p999": 43.4
+        },
+        "vusers.session_length": {
+          "min": 4.6,
+          "max": 74.8,
+          "count": 43,
+          "p50": 13.3,
+          "median": 13.3,
+          "p75": 19.5,
+          "p90": 27.9,
+          "p95": 29.7,
+          "p99": 49.9,
+          "p999": 49.9
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Retrieves the list of products.": 24,
+        "vusers.created": 100,
+        "http.requests": 100,
+        "http.codes.200": 100,
+        "http.responses": 100,
+        "vusers.failed": 0,
+        "vusers.completed": 100,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 21,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 34,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 21
+      },
+      "rates": {
+        "http.request_rate": 10
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853530033,
+      "firstHistogramAt": 1684853530054,
+      "lastCounterAt": 1684853539987,
+      "lastHistogramAt": 1684853539987,
+      "firstMetricAt": 1684853530033,
+      "lastMetricAt": 1684853539987,
+      "period": "1684853530000",
+      "summaries": {
+        "http.response_time": {
+          "min": 2,
+          "max": 74,
+          "count": 100,
+          "p50": 4,
+          "median": 4,
+          "p75": 6,
+          "p90": 8.9,
+          "p95": 10.1,
+          "p99": 19.1,
+          "p999": 19.1
+        },
+        "vusers.session_length": {
+          "min": 4.3,
+          "max": 76.1,
+          "count": 100,
+          "p50": 6.6,
+          "median": 6.6,
+          "p75": 8.2,
+          "p90": 12.1,
+          "p95": 16.6,
+          "p99": 22,
+          "p999": 22
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 2,
+          "max": 74,
+          "count": 100,
+          "p50": 4,
+          "median": 4,
+          "p75": 6,
+          "p90": 8.9,
+          "p95": 10.1,
+          "p99": 19.1,
+          "p999": 19.1
+        },
+        "vusers.session_length": {
+          "min": 4.3,
+          "max": 76.1,
+          "count": 100,
+          "p50": 6.6,
+          "median": 6.6,
+          "p75": 8.2,
+          "p90": 12.1,
+          "p95": 16.6,
+          "p99": 22,
+          "p999": 22
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 29,
+        "vusers.created": 100,
+        "http.requests": 100,
+        "http.codes.200": 100,
+        "http.responses": 100,
+        "vusers.failed": 0,
+        "vusers.completed": 100,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 30,
+        "vusers.created_by_name.Retrieves the list of products.": 21,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 20
+      },
+      "rates": {
+        "http.request_rate": 10
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853540033,
+      "firstHistogramAt": 1684853540039,
+      "lastCounterAt": 1684853549987,
+      "lastHistogramAt": 1684853549987,
+      "firstMetricAt": 1684853540033,
+      "lastMetricAt": 1684853549987,
+      "period": "1684853540000",
+      "summaries": {
+        "http.response_time": {
+          "min": 2,
+          "max": 18,
+          "count": 100,
+          "p50": 4,
+          "median": 4,
+          "p75": 7,
+          "p90": 7.9,
+          "p95": 10.9,
+          "p99": 18,
+          "p999": 18
+        },
+        "vusers.session_length": {
+          "min": 3.8,
+          "max": 24.4,
+          "count": 100,
+          "p50": 6.4,
+          "median": 6.4,
+          "p75": 8.8,
+          "p90": 10.5,
+          "p95": 13.9,
+          "p99": 22.4,
+          "p999": 22.4
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 2,
+          "max": 18,
+          "count": 100,
+          "p50": 4,
+          "median": 4,
+          "p75": 7,
+          "p90": 7.9,
+          "p95": 10.9,
+          "p99": 18,
+          "p999": 18
+        },
+        "vusers.session_length": {
+          "min": 3.8,
+          "max": 24.4,
+          "count": 100,
+          "p50": 6.4,
+          "median": 6.4,
+          "p75": 8.8,
+          "p90": 10.5,
+          "p95": 13.9,
+          "p99": 22.4,
+          "p999": 22.4
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Retrieves the list of products.": 116,
+        "vusers.created": 461,
+        "http.requests": 461,
+        "http.codes.200": 459,
+        "http.responses": 459,
+        "vusers.failed": 0,
+        "vusers.completed": 459,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 113,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 125,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 107
+      },
+      "rates": {
+        "http.request_rate": 48
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853550033,
+      "firstHistogramAt": 1684853550037,
+      "lastCounterAt": 1684853559997,
+      "lastHistogramAt": 1684853559972,
+      "firstMetricAt": 1684853550033,
+      "lastMetricAt": 1684853559997,
+      "period": "1684853550000",
+      "summaries": {
+        "http.response_time": {
+          "min": 2,
+          "max": 173,
+          "count": 459,
+          "p50": 6,
+          "median": 6,
+          "p75": 10.1,
+          "p90": 16,
+          "p95": 37,
+          "p99": 113.3,
+          "p999": 172.5
+        },
+        "vusers.session_length": {
+          "min": 3.3,
+          "max": 175.5,
+          "count": 459,
+          "p50": 8.4,
+          "median": 8.4,
+          "p75": 12.6,
+          "p90": 22,
+          "p95": 44.3,
+          "p99": 120.3,
+          "p999": 175.9
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 2,
+          "max": 173,
+          "count": 459,
+          "p50": 6,
+          "median": 6,
+          "p75": 10.1,
+          "p90": 16,
+          "p95": 37,
+          "p99": 113.3,
+          "p999": 172.5
+        },
+        "vusers.session_length": {
+          "min": 3.3,
+          "max": 175.5,
+          "count": 459,
+          "p50": 8.4,
+          "median": 8.4,
+          "p75": 12.6,
+          "p90": 22,
+          "p95": 44.3,
+          "p99": 120.3,
+          "p999": 175.9
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 258,
+        "vusers.created": 1000,
+        "http.requests": 1000,
+        "http.codes.200": 1001,
+        "http.responses": 1001,
+        "vusers.failed": 0,
+        "vusers.completed": 1001,
+        "vusers.created_by_name.Retrieves the list of products.": 250,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 249,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 243
+      },
+      "rates": {
+        "http.request_rate": 100
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853560001,
+      "firstHistogramAt": 1684853560001,
+      "lastCounterAt": 1684853569997,
+      "lastHistogramAt": 1684853569989,
+      "firstMetricAt": 1684853560001,
+      "lastMetricAt": 1684853569997,
+      "period": "1684853560000",
+      "summaries": {
+        "http.response_time": {
+          "min": 1,
+          "max": 100,
+          "count": 1001,
+          "p50": 6,
+          "median": 6,
+          "p75": 8.9,
+          "p90": 13.1,
+          "p95": 18,
+          "p99": 55.2,
+          "p999": 87.4
+        },
+        "vusers.session_length": {
+          "min": 3,
+          "max": 122.3,
+          "count": 1001,
+          "p50": 7.8,
+          "median": 7.8,
+          "p75": 12.1,
+          "p90": 19.9,
+          "p95": 29.1,
+          "p99": 66,
+          "p999": 106.7
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 1,
+          "max": 100,
+          "count": 1001,
+          "p50": 6,
+          "median": 6,
+          "p75": 8.9,
+          "p90": 13.1,
+          "p95": 18,
+          "p99": 55.2,
+          "p999": 87.4
+        },
+        "vusers.session_length": {
+          "min": 3,
+          "max": 122.3,
+          "count": 1001,
+          "p50": 7.8,
+          "median": 7.8,
+          "p75": 12.1,
+          "p90": 19.9,
+          "p95": 29.1,
+          "p99": 66,
+          "p999": 106.7
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 247,
+        "vusers.created": 1000,
+        "http.requests": 1000,
+        "http.codes.200": 1000,
+        "http.responses": 1000,
+        "vusers.failed": 0,
+        "vusers.completed": 1000,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 254,
+        "vusers.created_by_name.Retrieves the list of products.": 256,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 243
+      },
+      "rates": {
+        "http.request_rate": 100
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853570002,
+      "firstHistogramAt": 1684853570003,
+      "lastCounterAt": 1684853579997,
+      "lastHistogramAt": 1684853579986,
+      "firstMetricAt": 1684853570002,
+      "lastMetricAt": 1684853579997,
+      "period": "1684853570000",
+      "summaries": {
+        "http.response_time": {
+          "min": 1,
+          "max": 35,
+          "count": 1000,
+          "p50": 4,
+          "median": 4,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 10.9,
+          "p99": 22,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 2.7,
+          "max": 51.8,
+          "count": 1000,
+          "p50": 6.1,
+          "median": 6.1,
+          "p75": 8.9,
+          "p90": 13.3,
+          "p95": 21.1,
+          "p99": 34.1,
+          "p999": 46.1
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 1,
+          "max": 35,
+          "count": 1000,
+          "p50": 4,
+          "median": 4,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 10.9,
+          "p99": 22,
+          "p999": 32.8
+        },
+        "vusers.session_length": {
+          "min": 2.7,
+          "max": 51.8,
+          "count": 1000,
+          "p50": 6.1,
+          "median": 6.1,
+          "p75": 8.9,
+          "p90": 13.3,
+          "p95": 21.1,
+          "p99": 34.1,
+          "p999": 46.1
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Retrieves the list of products.": 161,
+        "vusers.created": 602,
+        "http.requests": 602,
+        "http.codes.200": 603,
+        "http.responses": 603,
+        "vusers.failed": 0,
+        "vusers.completed": 603,
+        "vusers.created_by_name.Returns the all styles available for the given product.": 149,
+        "vusers.created_by_name.Returns all product level information for a specified product id.": 151,
+        "vusers.created_by_name.Returns the ids of products related to the product specified.": 141
+      },
+      "rates": {
+        "http.request_rate": 100
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1684853580002,
+      "firstHistogramAt": 1684853580002,
+      "lastCounterAt": 1684853586143,
+      "lastHistogramAt": 1684853586143,
+      "firstMetricAt": 1684853580002,
+      "lastMetricAt": 1684853586143,
+      "period": "1684853580000",
+      "summaries": {
+        "http.response_time": {
+          "min": 1,
+          "max": 22,
+          "count": 603,
+          "p50": 5,
+          "median": 5,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 10.9,
+          "p99": 16,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 3,
+          "max": 34.1,
+          "count": 603,
+          "p50": 6.1,
+          "median": 6.1,
+          "p75": 8.9,
+          "p90": 12.6,
+          "p95": 18,
+          "p99": 27.4,
+          "p999": 32.1
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 1,
+          "max": 22,
+          "count": 603,
+          "p50": 5,
+          "median": 5,
+          "p75": 7,
+          "p90": 8.9,
+          "p95": 10.9,
+          "p99": 16,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 3,
+          "max": 34.1,
+          "count": 603,
+          "p50": 6.1,
+          "median": 6.1,
+          "p75": 8.9,
+          "p90": 12.6,
+          "p95": 18,
+          "p99": 27.4,
+          "p999": 32.1
+        }
+      }
+    }
+  ]
+}

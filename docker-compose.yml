@@ -9,7 +9,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./:/server
+      - ./:/service
     depends_on:
       - db
 

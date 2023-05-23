@@ -1,0 +1,36 @@
+config:
+  target: http://localhost:3000
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      name: 'Warm up load 1RPS'
+
+    - duration: 30
+      arrivalRate: 10
+      name: 'Ramp up load to 10RPS'
+
+    - duration: 30
+      arrivalRate: 100
+      name: 'Ramp up load to 100RPS'
+
+    - duration: 30
+      arrivalRate: 1000
+      name: 'Ramp up load to 1000RPS'
+
+scenarios:
+  - name: 'Retrieves the list of products.'
+    flow:
+      - get:
+          url: '/products/list'
+  - name: 'Returns all product level information for a specified product id.'
+    flow:
+      - get:
+          url: '/products/{{$randomNumber(900000,1000000)}}'
+  - name: 'Returns the all styles available for the given product.'
+    flow:
+      - get:
+          url: '/products/{{$randomNumber(1,225083)}}/styles'
+  - name: 'Returns the ids of products related to the product specified.'
+    flow:
+      - get:
+          url: '/products/{{$randomNumber(900000,1000000)}}/related'

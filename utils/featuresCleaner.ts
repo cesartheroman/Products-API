@@ -9,7 +9,7 @@ const readStream = fs.createReadStream(
 );
 
 const writeStream = fs.createWriteStream(
-  path.join(__dirname, '../data/clean_featureTest.csv')
+  path.join(__dirname, '../data/clean_features.csv')
 );
 
 const transformer = transform((data) => {

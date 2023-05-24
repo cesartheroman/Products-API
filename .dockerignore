@@ -1,2 +1,9 @@
-node_modules
-data
+*/node_modules*
+*/data*
+
+.git
+.vscode
+.gitignore
+
+docker-compose.yml
+Dockerfile*

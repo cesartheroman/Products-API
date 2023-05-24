@@ -8,7 +8,7 @@ const node_path_1 = __importDefault(require("node:path"));
 const csv_1 = require("csv");
 const csv_parser_1 = __importDefault(require("csv-parser"));
 const readStream = node_fs_1.default.createReadStream(node_path_1.default.join(__dirname, '../data/features.csv'));
-const writeStream = node_fs_1.default.createWriteStream(node_path_1.default.join(__dirname, '../data/clean_featureTest.csv'));
+const writeStream = node_fs_1.default.createWriteStream(node_path_1.default.join(__dirname, '../data/clean_features.csv'));
 const transformer = (0, csv_1.transform)((data) => {
     const stringifiedData = [];
     const jsonParsedData = [];

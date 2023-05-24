@@ -14,16 +14,18 @@ services:
       - db
 
   db:
-    image: postgres:15.2-alpine
+    build:
+      context: ./database
     restart: always
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./data:/data
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: ${PGPASSWORD}
       POSTGRES_USER: ${PGUSER}
       POSTGRES_DB: ${PGDATABASE}
-
-volumes:
-  postgres_data:
+# volumes:
+#   postgres_data:

@@ -8,22 +8,25 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  sendLoaderIoToken,
 } from '../controllers';
 
-const router = Router();
+export const productsRouter = Router();
 
-router.get('/list', getProductsList);
+productsRouter.get('/list', getProductsList);
 
-router.get('/:product_id', getOneProduct);
+productsRouter.get('/:product_id', getOneProduct);
 
-router.get('/:product_id/styles', getProductStyles);
+productsRouter.get('/:product_id/styles', getProductStyles);
 
-router.get('/:product_id/related', getRelatedProductIds);
+productsRouter.get('/:product_id/related', getRelatedProductIds);
 
-router.post('/', createProduct);
+productsRouter.post('/', createProduct);
 
-router.put('/:product_id', updateProduct);
+productsRouter.put('/:product_id', updateProduct);
 
-router.delete('/:product_id', deleteProduct);
+productsRouter.delete('/:product_id', deleteProduct);
 
-export default router;
+export const LoaderIoRouter = Router();
+
+LoaderIoRouter.get('/', sendLoaderIoToken);

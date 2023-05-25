@@ -11,6 +11,12 @@ import {
 } from '../models';
 import { Features, Product } from '../models/definitions';
 
+// GET Loader.io Token
+export const sendLoaderIoToken = (req: Request, res: Response) => {
+  res.send(process.env.LOADERIO_TOKEN);
+  console.log('hi');
+};
+
 //GET All Products
 export const getProductsList = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 1;

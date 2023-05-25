@@ -1,4 +1,4 @@
-import db from '../../database';
+import { db, redisClient } from '../../database';
 
 import { Product, ArrayToJsonObject, NewProduct } from './definitions';
 
@@ -15,9 +15,21 @@ export const readProductsList = async (
       values: [page * count - count, count],
     };
 
-    const { rows }: { rows: Product[] } = await client.query(query);
+    const redisKey: string = `${page * count - count}`;
 
-    return rows;
+    const cacheValue = await redisClient.get(redisKey);
+
+    if (cacheValue) {
+      const cachedResults: Product[] = JSON.parse(cacheValue);
+
+      return cachedResults;
+    } else {
+      const { rows }: { rows: Product[] } = await client.query(query);
+
+      await redisClient.set(redisKey, JSON.stringify(rows));
+
+      return rows;
+    }
   } catch (err) {
     console.log('Error executing query: readProductsList', err);
     return [];
@@ -50,9 +62,21 @@ export const readProductById = async (
       values: [product_id],
     };
 
-    const { rows }: { rows: Product[] } = await db.query(query);
+    const redisKey: string = `${product_id}`;
 
-    return rows;
+    const cacheValue = await redisClient.get(redisKey);
+
+    if (cacheValue) {
+      const cachedResults: Product[] = JSON.parse(cacheValue);
+
+      return cachedResults;
+    } else {
+      const { rows }: { rows: Product[] } = await db.query(query);
+
+      await redisClient.set(redisKey, JSON.stringify(rows));
+
+      return rows;
+    }
   } catch (err) {
     console.log('Error executing query: readProductById', err);
     return [];
@@ -97,9 +121,21 @@ export const readProductStyles = async (product_id: number) => {
       values: [product_id],
     };
 
-    const { rows } = await db.query(query);
+    const redisKey: string = `${product_id}`;
 
-    return rows;
+    const cachedValue = await redisClient.get(redisKey);
+
+    if (cachedValue) {
+      const cachedResults: Product[] = JSON.parse(cachedValue);
+
+      return cachedResults;
+    } else {
+      const { rows } = await db.query(query);
+
+      await redisClient.set(redisKey, JSON.stringify(rows));
+
+      return rows;
+    }
   } catch (err) {
     console.log('Error executing query: readProductStyles', err);
     return [];
@@ -120,9 +156,21 @@ export const readRelatedProoductIds = async (
       values: [product_id],
     };
 
-    const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
+    const redisKey = `${product_id}`;
 
-    return rows;
+    const cachedValue = await redisClient.get(redisKey);
+
+    if (cachedValue) {
+      const cachedResults: ArrayToJsonObject[] = JSON.parse(cachedValue);
+
+      return cachedResults;
+    } else {
+      const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
+
+      await redisClient.set(redisKey, JSON.stringify(rows));
+
+      return rows;
+    }
   } catch (err) {
     console.log('Error executing query: readRelatedProoductIds', err);
     return [];

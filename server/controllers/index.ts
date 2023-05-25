@@ -12,12 +12,15 @@ import {
 import { Features, Product } from '../models/definitions';
 
 // GET Loader.io Token
-export const sendLoaderIoToken = (req: Request, res: Response) => {
+export const sendLoaderIoToken = (req: Request, res: Response): void => {
   res.send(process.env.LOADERIO_TOKEN);
 };
 
 //GET All Products
-export const getProductsList = async (req: Request, res: Response) => {
+export const getProductsList = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const page = Number(req.query.page) || 1;
   const count = Number(req.query.count) || 5;
 
@@ -31,7 +34,10 @@ export const getProductsList = async (req: Request, res: Response) => {
 };
 
 //GET One Product
-export const getOneProduct = async (req: Request, res: Response) => {
+export const getOneProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { product_id } = req.params;
 
   try {
@@ -44,7 +50,10 @@ export const getOneProduct = async (req: Request, res: Response) => {
 };
 
 //GET Product Styles
-export const getProductStyles = async (req: Request, res: Response) => {
+export const getProductStyles = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { product_id } = req.params;
 
   try {
@@ -57,7 +66,10 @@ export const getProductStyles = async (req: Request, res: Response) => {
 };
 
 //GET Related ProductIds
-export const getRelatedProductIds = async (req: Request, res: Response) => {
+export const getRelatedProductIds = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { product_id } = req.params;
 
   try {
@@ -74,7 +86,10 @@ export const getRelatedProductIds = async (req: Request, res: Response) => {
 };
 
 //POST Create Product
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { name, slogan, description, category, default_price, features } =
     req.query;
 
@@ -99,7 +114,10 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 //PUT Update Product
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { product_id } = req.params;
 
   const { name, slogan, description, category, default_price } = req.body;
@@ -127,7 +145,10 @@ export const updateProduct = async (req: Request, res: Response) => {
 };
 
 //DELETE Product
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { product_id } = req.params;
 
   try {

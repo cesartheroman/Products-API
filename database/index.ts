@@ -1,5 +1,2 @@
-import { Pool } from 'pg';
-
-const pool = new Pool();
-
-export default pool;
+export { default as db } from './db';
+export { default as redisClient } from './redis';

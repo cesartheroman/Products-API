@@ -5,7 +5,7 @@ services:
     container_name: products-api
     build:
       context: .
-    command: npm run dev
+    command: npm run start
     ports:
       - 3000:3000
     volumes:

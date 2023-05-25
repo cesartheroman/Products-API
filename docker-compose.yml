@@ -5,7 +5,7 @@ services:
     container_name: products-api
     build:
       context: .
-    command: npm start
+    command: npm run dev
     ports:
       - 3000:3000
     volumes:
@@ -25,3 +25,8 @@ services:
       POSTGRES_PASSWORD: ${PGPASSWORD}
       POSTGRES_USER: ${PGUSER}
       POSTGRES_DB: ${PGDATABASE}
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'

@@ -14,7 +14,6 @@ import { Features, Product } from '../models/definitions';
 // GET Loader.io Token
 export const sendLoaderIoToken = (req: Request, res: Response) => {
   res.send(process.env.LOADERIO_TOKEN);
-  console.log('hi');
 };
 
 //GET All Products

@@ -90,24 +90,20 @@ export const createProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { name, slogan, description, category, default_price, features } =
-    req.query;
+  const { name, slogan, description, category, default_price } = req.body;
 
   try {
-    const parsedFeatures: Features[] = JSON.parse(features as string);
-
     const newProduct = {
       name: name as string,
       slogan: slogan as string,
       description: description as string,
       category: category as string,
-      default_price: parseInt(default_price as string),
-      features: parsedFeatures,
+      default_price: default_price as number,
     };
 
-    const createdProduct = await createNewProduct(newProduct);
+    const [createdProduct] = await createNewProduct(newProduct);
 
-    res.status(201).send(createdProduct);
+    res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -136,9 +132,9 @@ export const updateProduct = async (
       default_price: parseInt(default_price as string),
     };
 
-    const updatedProduct = await updateProductById(productToBeUpdated);
+    const [updatedProduct] = await updateProductById(productToBeUpdated);
 
-    res.status(200).send(updatedProduct);
+    res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -154,7 +150,7 @@ export const deleteProduct = async (
   try {
     const deletedProduct = await deleteProductById(parseInt(product_id));
 
-    res.status(200).send(deletedProduct);
+    res.sendStatus(200).send(deletedProduct);
   } catch (err) {
     res.status(500).send(err);
   }

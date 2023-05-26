@@ -6,4 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY /server ./
+
+COPY .env ./
+
+COPY tsconfig.json ./

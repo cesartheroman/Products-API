@@ -2,8 +2,8 @@ import { db, redisClient } from '../../database';
 
 import {
   Product,
-  ArrayToJsonObject,
   NewProduct,
+  ArrayToJsonObject,
   pgQueries,
   redisQueries,
 } from './definitions';
@@ -171,19 +171,6 @@ export const createNewProduct = async (
     const { rows }: { rows: Product[] } = await client.query(productQuery);
 
     const [createdProduct] = rows;
-
-    const [featuresObj] = newProduct.features;
-
-    const featuresQuery = {
-      text: pgQueries.queryFeatures,
-      values: [
-        createdProduct.product_id,
-        featuresObj.feature,
-        featuresObj.value,
-      ],
-    };
-
-    await client.query(featuresQuery);
 
     return [createdProduct];
   } catch (err) {

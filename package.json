@@ -2,7 +2,6 @@
   "name": "productsapi",
   "version": "1.0.0",
   "description": "System Design Capstone Project",
-  "main": "index.js",
   "scripts": {
     "start": "node dist/server/index.js",
     "dev": "nodemon server/index.ts",
@@ -24,6 +23,8 @@
     "pg": "^8.10.0",
     "redis": "^4.6.6",
     "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
     "ts-jest": "^29.1.0"
   },
   "devDependencies": {
@@ -33,6 +34,8 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.16.0",
     "@types/pg": "^8.6.6",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
     "csv": "^6.2.10",
     "csv-parser": "^3.0.0",
     "nodemon": "^2.0.22",

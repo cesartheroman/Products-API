@@ -19,7 +19,6 @@ export interface NewProduct {
   description: string;
   category: string;
   default_price: number;
-  features: Features[];
 }
 
 export interface ArrayToJsonObject {

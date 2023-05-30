@@ -9,14 +9,14 @@ import {
   updateProductById,
   deleteProductById,
 } from '../models';
-import { Features, Product } from '../models/definitions';
+import { Product } from '../models/definitions';
 
-// GET Loader.io Token
+/* GET Loader.io Token */
 export const sendLoaderIoToken = (req: Request, res: Response): void => {
   res.send(process.env.LOADERIO_TOKEN);
 };
 
-//GET All Products
+/* GET All Products */
 export const getProductsList = async (
   req: Request,
   res: Response
@@ -33,7 +33,7 @@ export const getProductsList = async (
   }
 };
 
-//GET One Product
+/* GET One Product */
 export const getOneProduct = async (
   req: Request,
   res: Response
@@ -41,15 +41,19 @@ export const getOneProduct = async (
   const { product_id } = req.params;
 
   try {
-    const response = await readProductById(parseInt(product_id));
+    const [product] = await readProductById(parseInt(product_id));
 
-    res.status(200).send(response);
+    if (product) {
+      res.status(200).send(product);
+    } else {
+      res.status(404).send(`Product ${product_id} does not exist`);
+    }
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-//GET Product Styles
+/* GET Product Styles */
 export const getProductStyles = async (
   req: Request,
   res: Response
@@ -65,7 +69,7 @@ export const getProductStyles = async (
   }
 };
 
-//GET Related ProductIds
+/* GET Related ProductIds */
 export const getRelatedProductIds = async (
   req: Request,
   res: Response
@@ -85,14 +89,13 @@ export const getRelatedProductIds = async (
   }
 };
 
-//POST Create Product
+/* POST Create Product */
 export const createProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { name, slogan, description, category, default_price } = req.body;
-
   try {
+    const { name, slogan, description, category, default_price } = req.body;
     const newProduct = {
       name: name as string,
       slogan: slogan as string,
@@ -103,55 +106,63 @@ export const createProduct = async (
 
     const [createdProduct] = await createNewProduct(newProduct);
 
-    res.sendStatus(201);
+    if (createdProduct) {
+      res.status(201).send(createdProduct.product_id.toString());
+    } else {
+      throw new Error(`Failed to create product: ${name}`);
+    }
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-//PUT Update Product
+/* PUT Update Product */
 export const updateProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { product_id } = req.params;
-
-  const { name, slogan, description, category, default_price } = req.body;
-
   try {
-    const product = await readProductById(parseInt(product_id as string));
+    const { product_id } = req.params;
+    const { name, slogan, description, category, default_price } = req.body;
 
-    if (product.length === 0) throw new Error('Product does not exist');
+    const [product] = await readProductById(parseInt(product_id as string));
 
-    const productToBeUpdated: Product = {
-      product_id: parseInt(product_id as string),
-      name: name as string,
-      slogan: slogan as string,
-      description: description as string,
-      category: category as string,
-      default_price: parseInt(default_price as string),
-    };
+    if (product) {
+      const productToBeUpdated: Product = {
+        product_id: parseInt(product_id as string),
+        name: name as string,
+        slogan: slogan as string,
+        description: description as string,
+        category: category as string,
+        default_price: parseInt(default_price as string),
+      };
 
-    const [updatedProduct] = await updateProductById(productToBeUpdated);
+      const [updatedProduct] = await updateProductById(productToBeUpdated);
 
-    res.sendStatus(201);
+      res.status(200).send(updatedProduct.product_id.toString());
+    } else {
+      throw new Error(`Product ${product_id} does not exist`);
+    }
   } catch (err) {
-    res.status(500).send(err);
+    res.status(404).send(err);
   }
 };
 
-//DELETE Product
+/* DELETE Product */
 export const deleteProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { product_id } = req.params;
-
   try {
-    const deletedProduct = await deleteProductById(parseInt(product_id));
+    const { product_id } = req.params;
+    const [deletedProduct] = await deleteProductById(parseInt(product_id));
 
-    res.sendStatus(200).send(deletedProduct);
-  } catch (err) {
-    res.status(500).send(err);
+    if (deletedProduct) {
+      res.status(200).send(deletedProduct.product_id.toString());
+    } else {
+      throw new Error(`Product ${product_id} does not exist`);
+    }
+  } catch (err: any) {
+    res.status(404).send(err.message);
   }
 };

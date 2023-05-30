@@ -8,7 +8,7 @@ import {
   redisQueries,
 } from './definitions';
 
-//Read All Products
+/* Read All Products */
 export const readProductsList = async (
   page: number,
   count: number
@@ -47,7 +47,7 @@ export const readProductsList = async (
   }
 };
 
-//Read One Product
+/* Read One Product */
 export const readProductById = async (
   product_id: number
 ): Promise<Product[]> => {
@@ -82,7 +82,7 @@ export const readProductById = async (
   }
 };
 
-//Read Product Styles
+/* Read Product Styles */
 export const readProductStyles = async (product_id: number) => {
   const client = await db.connect();
 
@@ -115,7 +115,7 @@ export const readProductStyles = async (product_id: number) => {
   }
 };
 
-//Read Related Products
+/* Read Related Products */
 export const readRelatedProoductIds = async (
   product_id: number
 ): Promise<ArrayToJsonObject[]> => {
@@ -150,7 +150,7 @@ export const readRelatedProoductIds = async (
   }
 };
 
-//Create Product
+/* Create Product */
 export const createNewProduct = async (
   newProduct: NewProduct
 ): Promise<Product[]> => {
@@ -170,18 +170,15 @@ export const createNewProduct = async (
 
     const { rows }: { rows: Product[] } = await client.query(productQuery);
 
-    const [createdProduct] = rows;
-
-    return [createdProduct];
+    return rows;
   } catch (err) {
-    console.log('Error executing query: createNewProduct', err);
-    return [];
+    throw new Error('Error executing query: createNewProduct');
   } finally {
     client.release();
   }
 };
 
-//Update Product
+/* Update Product */
 export const updateProductById = async (productToBeUpdated: Product) => {
   const client = await db.connect();
 
@@ -198,18 +195,23 @@ export const updateProductById = async (productToBeUpdated: Product) => {
       ],
     };
 
+    const redisKey = redisQueries.queryProductById(
+      productToBeUpdated.product_id
+    );
+
     const { rows }: { rows: Product[] } = await client.query(productQuery);
+
+    await redisClient.set(redisKey, JSON.stringify(rows));
 
     return rows;
   } catch (err) {
-    console.log('Error executing query: updateProductById', err);
-    return [];
+    throw new Error('Error executing query: updateProductById');
   } finally {
     client.release();
   }
 };
 
-//DELETE Product
+/* DELETE Product */
 export const deleteProductById = async (
   product_id: number
 ): Promise<Product[]> => {
@@ -221,12 +223,15 @@ export const deleteProductById = async (
       values: [product_id],
     };
 
+    const redisKey = redisQueries.queryProductById(product_id);
+
     const { rows }: { rows: Product[] } = await client.query(query);
 
+    await redisClient.del(redisKey);
+
     return rows;
-  } catch (err) {
-    console.log('Error executing query: deleteProductById', err);
-    return [];
+  } catch (err: any) {
+    throw new Error('Error executing query: updateProductById');
   } finally {
     client.release();
   }

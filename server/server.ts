@@ -2,14 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import swaggerUI from 'swagger-ui-express';
-import swaggerJSdoc from 'swagger-jsdoc';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 import { productsRouter, LoaderIoRouter } from './routes/router';
-import swaggerJSDoc from 'swagger-jsdoc';
 
 const app = express();
 
-// Swagger definition
+/* Swagger definition */
 const swaggerSpec = {
   definition: {
     openapi: '3.0.0',
@@ -39,7 +38,6 @@ app.use(
 
 /* Routes */
 app.use(`/${process.env.LOADERIO_TOKEN}`, LoaderIoRouter);
-
 app.use('/products', productsRouter);
 
 export default app;

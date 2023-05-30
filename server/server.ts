@@ -26,7 +26,7 @@ const swaggerSpec = {
 };
 
 /* Global middlewares */
-app.use(cors({ methods: ['GET', 'PUT', 'POST', 'DELETE'] }));
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

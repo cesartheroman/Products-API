@@ -1,2 +1,9 @@
-export { Features, Product, NewProduct, ArrayToJsonObject } from './interfaces';
+export {
+  Features,
+  Product,
+  NewProduct,
+  ArrayToJsonObject,
+  JsonBuildObjectStyles,
+  JsonBuildObjectProduct,
+} from './interfaces';
 export { pgQueries, redisQueries } from './queries';

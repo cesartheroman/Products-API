@@ -2,32 +2,17 @@ version: '3.9'
 
 services:
   api:
-    container_name: products-api
-    # server-1:
     build:
       context: .
     restart: on-failure
-    command: npm run start
-    # command: npm run dev
-    ports:
-      # - 3001:3000
-      - 3000:3000
+    # command: npm run start
+    command: npm run dev
+    # ports:
+    #   - 3000:3000
     volumes:
       - ./:/service
     depends_on:
       - db
-
-  # server-2:
-  #   build:
-  #     context: .
-  #   restart: on-failure
-  #   command: npm run dev
-  #   ports:
-  #     - 3002:3000
-  #   volumes:
-  #     - ./:/service
-  #   depends_on:
-  #     - db
 
   db:
     build:
@@ -45,14 +30,16 @@ services:
   redis:
     image: 'redis:alpine'
     ports:
-      - '6379:6379'
+      - 6379:6379
 
-  # nginx:
-  #   image: nginx:alpine
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - .nginx.conf:/etc/nginx/conf.d
+  nginx:
+    image: nginx:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
 
 volumes:
   pg_data:

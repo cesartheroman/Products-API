@@ -9,6 +9,7 @@ import {
   updateProductById,
   deleteProductById,
 } from '../models';
+
 import { Product } from '../models/definitions';
 
 /* GET Loader.io Token */
@@ -41,7 +42,8 @@ export const getOneProduct = async (
   const { product_id } = req.params;
 
   try {
-    const [product] = await readProductById(parseInt(product_id));
+    const [JsonBuildObject] = await readProductById(parseInt(product_id));
+    const { json_build_object: product } = JsonBuildObject;
 
     if (product) {
       res.status(200).send(product);
@@ -61,9 +63,11 @@ export const getProductStyles = async (
   const { product_id } = req.params;
 
   try {
-    const response = await readProductStyles(parseInt(product_id));
+    const [JsonBuildObject] = await readProductStyles(parseInt(product_id));
 
-    res.status(200).send(response);
+    const { json_build_object: productStyles } = JsonBuildObject;
+
+    res.status(200).send(productStyles);
   } catch (err) {
     res.status(500).send(err);
   }

@@ -6,6 +6,8 @@ import {
   ArrayToJsonObject,
   pgQueries,
   redisQueries,
+  JsonBuildObjectStyles,
+  JsonBuildObjectProduct,
 } from './definitions';
 
 /* Read All Products */
@@ -50,7 +52,7 @@ export const readProductsList = async (
 /* Read One Product */
 export const readProductById = async (
   product_id: number
-): Promise<Product[]> => {
+): Promise<JsonBuildObjectProduct[]> => {
   const client = await db.connect();
 
   try {
@@ -64,12 +66,13 @@ export const readProductById = async (
     const cacheValue = await redisClient.get(redisKey);
 
     if (cacheValue) {
-      const cachedResults: Product[] = JSON.parse(cacheValue);
+      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
 
       return cachedResults;
     } else {
-      const { rows }: { rows: Product[] } = await db.query(query);
-
+      const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
+        query
+      );
       await redisClient.set(redisKey, JSON.stringify(rows));
 
       return rows;
@@ -83,7 +86,9 @@ export const readProductById = async (
 };
 
 /* Read Product Styles */
-export const readProductStyles = async (product_id: number) => {
+export const readProductStyles = async (
+  product_id: number
+): Promise<JsonBuildObjectStyles[]> => {
   const client = await db.connect();
 
   try {
@@ -97,11 +102,11 @@ export const readProductStyles = async (product_id: number) => {
     const cachedValue = await redisClient.get(redisKey);
 
     if (cachedValue) {
-      const cachedResults: Product[] = JSON.parse(cachedValue);
+      const cachedResults: JsonBuildObjectStyles[] = JSON.parse(cachedValue);
 
       return cachedResults;
     } else {
-      const { rows } = await db.query(query);
+      const { rows }: { rows: JsonBuildObjectStyles[] } = await db.query(query);
 
       await redisClient.set(redisKey, JSON.stringify(rows));
 
@@ -179,7 +184,9 @@ export const createNewProduct = async (
 };
 
 /* Update Product */
-export const updateProductById = async (productToBeUpdated: Product) => {
+export const updateProductById = async (
+  productToBeUpdated: Product
+): Promise<Product[]> => {
   const client = await db.connect();
 
   try {

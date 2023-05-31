@@ -57,11 +57,13 @@ export const productsRouter = Router();
  *  get:
  *     summary: Retrieves the list of products.
  *     parameters:
- *      - name: page
+ *      - in: query
+ *        name: page
  *        description: Selects the page of results to return. Default 1.
  *        required: false
  *        type: integer
- *      - name: count
+ *      - in: query
+ *        name: count
  *        description: Specifies how many results per page to return. Default 5.
  *        required: false
  *        type: integer

@@ -7,8 +7,6 @@ services:
     restart: on-failure
     command: npm run start
     # command: npm run dev
-    # ports:
-    #   - 3000:3000
     volumes:
       - ./:/service
     depends_on:

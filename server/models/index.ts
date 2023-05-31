@@ -18,15 +18,13 @@ export const readProductsList = async (
   const client = await db.connect();
 
   try {
+    const offset = page * count - count;
     const query = {
       text: pgQueries.queryProductsList,
-      values: [page * count - count, count],
+      values: [offset, count],
     };
 
-    const redisKey: string = redisQueries.queryProductsList(
-      page * count - count,
-      count
-    );
+    const redisKey: string = redisQueries.queryProductsList(offset, count);
 
     const cacheValue = await redisClient.get(redisKey);
 

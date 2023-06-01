@@ -1,4 +1,4 @@
-import { db, redisClient } from '../../database';
+import { db } from '../../database';
 
 import {
   Product,
@@ -24,21 +24,25 @@ export const readProductsList = async (
       values: [offset, count],
     };
 
-    const redisKey: string = redisQueries.queryProductsList(offset, count);
+    // const redisKey: string = redisQueries.queryProductsList(offset, count);
 
-    const cacheValue = await redisClient.get(redisKey);
+    // const cacheValue = await redisClient.get(redisKey);
 
-    if (cacheValue) {
-      const cachedResults: Product[] = JSON.parse(cacheValue);
+    // if (cacheValue) {
+    //   const cachedResults: Product[] = JSON.parse(cacheValue);
 
-      return cachedResults;
-    } else {
-      const { rows }: { rows: Product[] } = await client.query(query);
+    //   return cachedResults;
+    // } else {
+    //   const { rows }: { rows: Product[] } = await client.query(query);
 
-      await redisClient.set(redisKey, JSON.stringify(rows));
+    //   await redisClient.set(redisKey, JSON.stringify(rows));
 
-      return rows;
-    }
+    //   return rows;
+    // }
+
+    const { rows }: { rows: Product[] } = await client.query(query);
+
+    return rows;
   } catch (err) {
     console.log('Error executing query: readProductsList', err);
     return [];
@@ -59,23 +63,27 @@ export const readProductById = async (
       values: [product_id],
     };
 
-    const redisKey: string = redisQueries.queryProductById(product_id);
+    // const redisKey: string = redisQueries.queryProductById(product_id);
 
-    const cacheValue = await redisClient.get(redisKey);
+    // const cacheValue = await redisClient.get(redisKey);
 
-    if (cacheValue) {
-      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
+    // if (cacheValue) {
+    //   const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
 
-      return cachedResults;
-    } else {
-      const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
-        query
-      );
+    //   return cachedResults;
+    // } else {
+    //   const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
+    //     query
+    //   );
 
-      await redisClient.set(redisKey, JSON.stringify(rows));
+    //   await redisClient.set(redisKey, JSON.stringify(rows));
 
-      return rows;
-    }
+    //   return rows;
+    // }
+
+    const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(query);
+
+    return rows;
   } catch (err) {
     console.log('Error executing query: readProductById', err);
     return [];
@@ -96,21 +104,24 @@ export const readProductStyles = async (
       values: [product_id],
     };
 
-    const redisKey: string = redisQueries.queryProductStyles(product_id);
+    // const redisKey: string = redisQueries.queryProductStyles(product_id);
 
-    const cachedValue = await redisClient.get(redisKey);
+    // const cachedValue = await redisClient.get(redisKey);
 
-    if (cachedValue) {
-      const cachedResults: JsonBuildObjectStyles[] = JSON.parse(cachedValue);
+    // if (cachedValue) {
+    //   const cachedResults: JsonBuildObjectStyles[] = JSON.parse(cachedValue);
 
-      return cachedResults;
-    } else {
-      const { rows }: { rows: JsonBuildObjectStyles[] } = await db.query(query);
+    //   return cachedResults;
+    // } else {
+    //   const { rows }: { rows: JsonBuildObjectStyles[] } = await db.query(query);
 
-      await redisClient.set(redisKey, JSON.stringify(rows));
+    //   await redisClient.set(redisKey, JSON.stringify(rows));
 
-      return rows;
-    }
+    //   return rows;
+    // }
+
+    const { rows }: { rows: JsonBuildObjectStyles[] } = await db.query(query);
+    return rows;
   } catch (err) {
     console.log('Error executing query: readProductStyles', err);
     return [];
@@ -131,21 +142,24 @@ export const readRelatedProoductIds = async (
       values: [product_id],
     };
 
-    const redisKey = redisQueries.queryRelatedProductIds(product_id);
+    // const redisKey = redisQueries.queryRelatedProductIds(product_id);
 
-    const cachedValue = await redisClient.get(redisKey);
+    // const cachedValue = await redisClient.get(redisKey);
 
-    if (cachedValue) {
-      const cachedResults: ArrayToJsonObject[] = JSON.parse(cachedValue);
+    // if (cachedValue) {
+    //   const cachedResults: ArrayToJsonObject[] = JSON.parse(cachedValue);
 
-      return cachedResults;
-    } else {
-      const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
+    //   return cachedResults;
+    // } else {
+    //   const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
 
-      await redisClient.set(redisKey, JSON.stringify(rows));
+    //   await redisClient.set(redisKey, JSON.stringify(rows));
 
-      return rows;
-    }
+    //   return rows;
+    // }
+
+    const { rows }: { rows: ArrayToJsonObject[] } = await client.query(query);
+    return rows;
   } catch (err) {
     console.log('Error executing query: readRelatedProoductIds', err);
     return [];
@@ -201,13 +215,13 @@ export const updateProductById = async (
       ],
     };
 
-    const redisKey = redisQueries.queryProductById(
-      productToBeUpdated.product_id
-    );
+    // const redisKey = redisQueries.queryProductById(
+    //   productToBeUpdated.product_id
+    // );
 
     const { rows }: { rows: Product[] } = await client.query(productQuery);
 
-    await redisClient.set(redisKey, JSON.stringify(rows));
+    // await redisClient.set(redisKey, JSON.stringify(rows));
 
     return rows;
   } catch (err) {
@@ -229,11 +243,11 @@ export const deleteProductById = async (
       values: [product_id],
     };
 
-    const redisKey = redisQueries.queryProductById(product_id);
+    // const redisKey = redisQueries.queryProductById(product_id);
 
     const { rows }: { rows: Product[] } = await client.query(query);
 
-    await redisClient.del(redisKey);
+    // await redisClient.del(redisKey);
 
     return rows;
   } catch (err: any) {

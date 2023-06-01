@@ -71,6 +71,7 @@ export const readProductById = async (
       const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
         query
       );
+
       await redisClient.set(redisKey, JSON.stringify(rows));
 
       return rows;

@@ -1,4 +1,4 @@
-FROM postgres:15.2-alpine
+FROM postgres:15.2
 
 ADD scripts/1_init.sql /docker-entrypoint-initdb.d
 

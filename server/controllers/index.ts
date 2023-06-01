@@ -43,7 +43,7 @@ export const getOneProduct = async (
 
   try {
     const [JsonBuildObject] = await readProductById(parseInt(product_id));
-    const { json_build_object: product } = JsonBuildObject;
+    const { jsonb_build_object: product } = JsonBuildObject;
 
     if (product) {
       res.status(200).send(product);
@@ -65,7 +65,7 @@ export const getProductStyles = async (
   try {
     const [JsonBuildObject] = await readProductStyles(parseInt(product_id));
 
-    const { json_build_object: productStyles } = JsonBuildObject;
+    const { jsonb_build_object: productStyles } = JsonBuildObject;
 
     res.status(200).send(productStyles);
   } catch (err) {

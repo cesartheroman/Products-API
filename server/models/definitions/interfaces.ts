@@ -26,11 +26,11 @@ export interface ArrayToJsonObject {
 }
 
 export interface JsonBuildObjectStyles {
-  json_build_object: StylesResponse;
+  jsonb_build_object: StylesResponse;
 }
 
 export interface JsonBuildObjectProduct {
-  json_build_object: Product;
+  jsonb_build_object: Product;
 }
 
 interface StylesResponse {

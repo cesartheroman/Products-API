@@ -2,18 +2,18 @@ export const pgQueries = {
   queryProductsList:
     'SELECT * FROM products WHERE product_id > $1 ORDER BY product_id LIMIT $2',
 
-  queryProductById: `SELECT json_build_object(
-    'product_id', products.product_id, 
-    'name', products.name,
-    'slogan', products.slogan,
-    'description', products.description,
-    'category', products.category,
-    'default_price', products.default_price,
+  queryProductById: `SELECT jsonb_build_object(
+    'product_id', product_id, 
+    'name', name,
+    'slogan', slogan,
+    'description', description,
+    'category', category,
+    'default_price', default_price,
     'features', (
       SELECT ARRAY(
-        SELECT json_build_object(
+        SELECT jsonb_build_object(
           'feature', features.feature,
-          'values', features.value
+          'value', features.value
         )
         FROM features
         WHERE features.product_id = $1
@@ -21,13 +21,13 @@ export const pgQueries = {
     )
   )
   FROM products
-  WHERE products.product_id = $1;`,
+  WHERE product_id = $1;`,
 
-  queryProductStyles: `SELECT json_build_object(
+  queryProductStyles: `SELECT jsonb_build_object(
           'product_id', products.product_id, 
           'results', (
             SELECT ARRAY(
-              SELECT json_build_object(
+              SELECT jsonb_build_object(
                 'style_id', styles.styles_id, 
                 'name', styles.name, 
                 'original_price', styles.original_price, 
@@ -35,7 +35,7 @@ export const pgQueries = {
                 'default?', styles.default_style, 
                 'photos', (
                     SELECT ARRAY(
-                      SELECT json_build_object(
+                      SELECT jsonb_build_object(
                         'thumbnail_url', photos.thumbnail_url, 
                         'url', photos.url
                       ) 
@@ -57,7 +57,7 @@ export const pgQueries = {
       FROM products 
       WHERE products.product_id = $1;`,
 
-  queryRelatedProductIds: `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id=$1`,
+  queryRelatedProductIds: `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id = $1;`,
 
   queryCreateProduct: `INSERT INTO products (name, slogan, description, category, default_price) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
 
@@ -74,18 +74,18 @@ export const redisQueries = {
   queryProductsList: (product_id: number, limit: number) =>
     `SELECT * FROM products WHERE product_id > ${product_id} ORDER BY product_id LIMIT ${limit}`,
 
-  queryProductById: (product_id: number) => `SELECT json_build_object(
-    'product_id', products.product_id, 
-    'name', products.name,
-    'slogan', products.slogan,
-    'description', products.description,
-    'category', products.category,
-    'default_price', products.default_price,
+  queryProductById: (product_id: number) => `SELECT jsonb_build_object(
+    'product_id', product_id, 
+    'name', name,
+    'slogan', slogan,
+    'description', description,
+    'category', category,
+    'default_price', default_price,
     'features', (
       SELECT ARRAY(
-        SELECT json_build_object(
+        SELECT jsonb_build_object(
           'feature', features.feature,
-          'values', features.value
+          'value', features.value
         )
         FROM features
         WHERE features.product_id = ${product_id}
@@ -93,13 +93,13 @@ export const redisQueries = {
     )
   )
   FROM products
-  WHERE products.product_id = ${product_id};`,
+  WHERE product_id = ${product_id};`,
 
-  queryProductStyles: (product_id: number) => `SELECT json_build_object(
+  queryProductStyles: (product_id: number) => `SELECT jsonb_build_object(
           'product_id', products.product_id, 
           'results', (
             SELECT ARRAY(
-              SELECT json_build_object(
+              SELECT jsonb_build_object(
                 'style_id', styles.styles_id, 
                 'name', styles.name, 
                 'original_price', styles.original_price, 
@@ -107,7 +107,7 @@ export const redisQueries = {
                 'default?', styles.default_style, 
                 'photos', (
                     SELECT ARRAY(
-                      SELECT json_build_object(
+                      SELECT jsonb_build_object(
                         'thumbnail_url', photos.thumbnail_url, 
                         'url', photos.url
                       ) 
@@ -127,8 +127,8 @@ export const redisQueries = {
         )
       )
       FROM products 
-      WHERE products.product_id = ${product_id}`,
+      WHERE products.product_id = ${product_id};`,
 
   queryRelatedProductIds: (product_id: number) =>
-    `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id=${product_id}`,
+    `SELECT ARRAY_TO_JSON(ARRAY_AGG(related_product_id)) FROM related WHERE product_id = ${product_id};`,
 };

@@ -18,7 +18,7 @@ const swaggerSpec = {
     },
     servers: [
       {
-        url: `http://52.14.133.6:${process.env.PORT}`,
+        url: `http://3.133.136.155:${process.env.PORT}`,
       },
     ],
   },

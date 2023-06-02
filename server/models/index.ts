@@ -50,7 +50,7 @@ export const readProductsList = async (
 /* Read One Product */
 export const readProductById = async (
   product_id: number
-): Promise<JsonBuildObjectProduct[]> => {
+): Promise<Product[]> => {
   const client = await db.connect();
 
   try {
@@ -64,13 +64,11 @@ export const readProductById = async (
     const cacheValue = await redisClient.get(redisKey);
 
     if (cacheValue) {
-      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
+      const cachedResults: Product[] = JSON.parse(cacheValue);
 
       return cachedResults;
     } else {
-      const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
-        query
-      );
+      const { rows }: { rows: Product[] } = await db.query(query);
 
       await redisClient.set(redisKey, JSON.stringify(rows));
 

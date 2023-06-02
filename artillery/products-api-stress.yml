@@ -14,7 +14,7 @@ config:
       name: 'Ramp up load to 100RPS'
 
     - duration: 30
-      arrivalRate: 100
+      arrivalRate: 200
       name: 'Ramp up load to 200RPS'
 
     - duration: 30

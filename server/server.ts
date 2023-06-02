@@ -24,6 +24,9 @@ const swaggerSpec = {
       {
         url: `${SERVER_2}:${PORT}`,
       },
+      {
+        url: `http://localhost:${PORT}`,
+      },
     ],
   },
   apis: [`${__dirname}/routes/router.js`],

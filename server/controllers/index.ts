@@ -42,11 +42,12 @@ export const getOneProduct = async (
   const { product_id } = req.params;
 
   try {
-    const [JsonBuildObject] = await readProductById(parseInt(product_id));
-    const { jsonb_build_object: product } = JsonBuildObject;
+    // const [JsonBuildObject] = await readProductById(parseInt(product_id));
+    const [response] = await readProductById(parseInt(product_id));
+    // const { jsonb_build_object: product } = JsonBuildObject;
 
-    if (product) {
-      res.status(200).send(product);
+    if (response) {
+      res.status(200).send(response);
     } else {
       res.status(404).send(`Product ${product_id} does not exist`);
     }

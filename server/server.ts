@@ -5,6 +5,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 import { productsRouter, LoaderIoRouter } from './routes/router';
+import { PORT, SERVER_1, SERVER_2 } from './routes/definitions';
 
 const app = express();
 
@@ -18,10 +19,10 @@ const swaggerSpec = {
     },
     servers: [
       {
-        url: `http://18.223.203.93:${process.env.PORT}`,
+        url: `${SERVER_1}:${PORT}`,
       },
       {
-        url: `http://18.116.80.164:${process.env.PORT}`,
+        url: `${SERVER_2}:${PORT}`,
       },
     ],
   },

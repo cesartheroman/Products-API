@@ -8,7 +8,7 @@ services:
     command: npm start
     # command: npm run dev
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - ./:/service
     depends_on:
@@ -32,14 +32,14 @@ services:
     ports:
       - 6379:6379
 
-  # nginx:
-  #   image: nginx:latest
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/nginx.conf
-  #   depends_on:
-  #     - api
+  nginx:
+    image: nginx:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
 
 volumes:
   pg_data:

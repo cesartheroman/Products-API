@@ -54,7 +54,7 @@ export const readProductsList = async (
 /* Read One Product */
 export const readProductById = async (
   product_id: number
-): Promise<Product[]> => {
+): Promise<JsonBuildObjectProduct[]> => {
   const client = await db.connect();
 
   try {
@@ -81,7 +81,7 @@ export const readProductById = async (
     //   return rows;
     // }
 
-    const { rows }: { rows: Product[] } = await db.query(query);
+    const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(query);
     return rows;
   } catch (err) {
     console.log('Error executing query: readProductById', err);

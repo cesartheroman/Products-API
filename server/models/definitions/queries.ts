@@ -2,40 +2,26 @@ export const pgQueries = {
   queryProductsList:
     'SELECT * FROM products WHERE product_id > $1 ORDER BY product_id LIMIT $2',
 
-  // queryProductById: `SELECT jsonb_build_object(
-  //   'product_id', product_id,
-  //   'name', name,
-  //   'slogan', slogan,
-  //   'description', description,
-  //   'category', category,
-  //   'default_price', default_price,
-  //   'features', (
-  //     SELECT ARRAY(
-  //       SELECT jsonb_build_object(
-  //         'feature', features.feature,
-  //         'value', features.value
-  //       )
-  //       FROM features
-  //       WHERE features.product_id = $1
-  //     )
-  //   )
-  // )
-  // FROM products
-  // WHERE product_id = $1;`,
-
-  queryProductById: `SELECT *, 
-      (
-        SELECT array_to_json(array_agg(feature_cols)
-      ) 
-      FROM 
-      (
-        SELECT feature, value 
-          FROM features 
-            WHERE features.product_id = $1) feature_cols
-      ) 
-      AS features 
-      FROM products 
-      WHERE products.product_id = $1;`,
+  queryProductById: `SELECT jsonb_build_object(
+    'product_id', product_id,
+    'name', name,
+    'slogan', slogan,
+    'description', description,
+    'category', category,
+    'default_price', default_price,
+    'features', (
+      SELECT ARRAY(
+        SELECT jsonb_build_object(
+          'feature', features.feature,
+          'value', features.value
+        )
+        FROM features
+        WHERE features.product_id = $1
+      )
+    )
+  )
+  FROM products
+  WHERE product_id = $1;`,
 
   queryProductStyles: `SELECT jsonb_build_object(
           'product_id', products.product_id, 
@@ -88,40 +74,26 @@ export const redisQueries = {
   queryProductsList: (product_id: number, limit: number) =>
     `SELECT * FROM products WHERE product_id > ${product_id} ORDER BY product_id LIMIT ${limit}`,
 
-  // queryProductById: (product_id: number) => `SELECT jsonb_build_object(
-  //   'product_id', product_id,
-  //   'name', name,
-  //   'slogan', slogan,
-  //   'description', description,
-  //   'category', category,
-  //   'default_price', default_price,
-  //   'features', (
-  //     SELECT ARRAY(
-  //       SELECT jsonb_build_object(
-  //         'feature', features.feature,
-  //         'value', features.value
-  //       )
-  //       FROM features
-  //       WHERE features.product_id = ${product_id}
-  //     )
-  //   )
-  // )
-  // FROM products
-  // WHERE product_id = ${product_id};`,
-
-  queryProductById: (product_id: number) => `SELECT *, 
-      (
-        SELECT array_to_json(array_agg(feature_cols)
-      ) 
-      FROM 
-      (
-        SELECT feature, value 
-          FROM features 
-            WHERE features.product_id = ${product_id}) feature_cols
-      ) 
-      AS features 
-      FROM products 
-      WHERE products.product_id = ${product_id};`,
+  queryProductById: (product_id: number) => `SELECT jsonb_build_object(
+    'product_id', product_id,
+    'name', name,
+    'slogan', slogan,
+    'description', description,
+    'category', category,
+    'default_price', default_price,
+    'features', (
+      SELECT ARRAY(
+        SELECT jsonb_build_object(
+          'feature', features.feature,
+          'value', features.value
+        )
+        FROM features
+        WHERE features.product_id = ${product_id}
+      )
+    )
+  )
+  FROM products
+  WHERE product_id = ${product_id};`,
 
   queryProductStyles: (product_id: number) => `SELECT jsonb_build_object(
           'product_id', products.product_id, 

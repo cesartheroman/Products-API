@@ -5,7 +5,7 @@ services:
     build:
       context: .
     restart: on-failure
-    command: npm run start
+    command: npm start
     # command: npm run dev
     volumes:
       - ./:/service
@@ -25,19 +25,19 @@ services:
       POSTGRES_USER: ${PGUSER}
       POSTGRES_DB: ${PGDATABASE}
 
-  redis:
-    image: redis:latest
-    ports:
-      - 6379:6379
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - 6379:6379
 
-  nginx:
-    image: nginx:latest
-    ports:
-      - 3000:3000
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - api
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   depends_on:
+  #     - api
 
 volumes:
   pg_data:

@@ -1,9 +1,16 @@
-*/node_modules*
-*/data*
+# Ignore everything
+**
 
-.git
-.vscode
-.gitignore
+# Allow files and directories
+!/server
+!/dist
+!/.env
+!/tsconfig.json
+!/package*.json
 
-docker-compose.yml
-Dockerfile*
+# Ignore unnecessary files inside allowed directories
+# This should go after the allowed directories
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db

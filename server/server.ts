@@ -5,7 +5,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 import { productsRouter, LoaderIoRouter } from './routes/router';
-import { PORT, SERVER_1, SERVER_2 } from './routes/definitions';
+import { PORT, SERVER_1, SERVER_2, LOCAL_HOST } from './routes/definitions';
 
 const app = express();
 
@@ -25,7 +25,7 @@ const swaggerSpec = {
         url: `${SERVER_2}:${PORT}`,
       },
       {
-        url: `http://localhost:${PORT}`,
+        url: `${LOCAL_HOST}:${PORT}`,
       },
     ],
   },

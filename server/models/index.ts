@@ -67,7 +67,6 @@ export const readProductById = async (
 
     // const cacheValue = await redisClient.get(redisKey);
 
-
     // if (cacheValue) {
     //   const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
 
@@ -77,13 +76,12 @@ export const readProductById = async (
     //     query
     //   );
 
-
     //   await redisClient.set(redisKey, JSON.stringify(rows));
 
     //   return rows;
     // }
 
-    const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(query);
+    const { rows }: { rows: Product[] } = await db.query(query);
     return rows;
   } catch (err) {
     console.log('Error executing query: readProductById', err);

@@ -20,14 +20,13 @@ LoaderIoRouter.get('/', sendLoaderIoToken);
 export const productsRouter = Router();
 /**
  * @swagger
- *  components:
+ * components:
  *  schemas:
  *     Product:
  *      type: object
-        properties:
+ *      properties:
  *          product_id:
  *              type: integer
- *              format: int64
  *              description: Product id
  *          name:
  *              type: string

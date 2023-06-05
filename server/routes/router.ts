@@ -108,7 +108,7 @@ productsRouter.get(
 
 productsRouter.get(
   '/:product_id',
-  [param('product_id').isNumeric(), handleInputErrors],
+  [param('product_id').exists().isNumeric(), handleInputErrors],
   getOneProduct
 );
 
@@ -133,7 +133,7 @@ productsRouter.get(
 
 productsRouter.get(
   '/:product_id/styles',
-  [param('product_id').isNumeric(), handleInputErrors],
+  [param('product_id').exists().isNumeric(), handleInputErrors],
   getProductStyles
 );
 
@@ -158,7 +158,7 @@ productsRouter.get(
 
 productsRouter.get(
   '/:product_id/related',
-  [param('product_id').isNumeric(), handleInputErrors],
+  [param('product_id').exists().isNumeric(), handleInputErrors],
   getRelatedProductIds
 );
 
@@ -237,7 +237,7 @@ productsRouter.post(
 
 productsRouter.put(
   '/:product_id',
-  [param('product_id').isNumeric(), handleInputErrors],
+  [param('product_id').exists()isNumeric(), handleInputErrors],
   updateProduct
 );
 
@@ -262,6 +262,6 @@ productsRouter.put(
 
 productsRouter.delete(
   '/:product_id',
-  [param('product_id').isNumeric(), handleInputErrors],
+  [param('product_id').exists().isNumeric(), handleInputErrors],
   deleteProduct
 );

@@ -41,14 +41,16 @@ export const getOneProduct = async (
 ): Promise<void> => {
   try {
     const { product_id } = req.params;
-    const [JsonBuildObject] = await readProductById(parseInt(product_id));
+    const response = await readProductById(parseInt(product_id));
 
-    const { jsonb_build_object: product } = JsonBuildObject;
-
-    if (product) {
-      res.status(200).send(product);
-    } else {
+    if (response.length === 0) {
       res.status(404).send(`Product ${product_id} does not exist`);
+    } else {
+      const [JsonBuildObject] = response;
+
+      const { jsonb_build_object: product } = JsonBuildObject;
+
+      res.status(200).send(product);
     }
   } catch (err) {
     res.status(500).send(err);
@@ -62,11 +64,16 @@ export const getProductStyles = async (
 ): Promise<void> => {
   try {
     const { product_id } = req.params;
-    const [JsonBuildObject] = await readProductStyles(parseInt(product_id));
+    const response = await readProductById(parseInt(product_id));
 
-    const { jsonb_build_object: productStyles } = JsonBuildObject;
+    if (response.length === 0) {
+      res.status(404).send(`Product ${product_id} styles do not exist`);
+    } else {
+      const [JsonBuildObject] = response;
+      const { jsonb_build_object: productStyles } = JsonBuildObject;
 
-    res.status(200).send(productStyles);
+      res.status(200).send(productStyles);
+    }
   } catch (err) {
     res.status(500).send(err);
   }
@@ -79,13 +86,21 @@ export const getRelatedProductIds = async (
 ): Promise<void> => {
   try {
     const { product_id } = req.params;
-    const [arrayToJsonObject] = await readRelatedProoductIds(
-      parseInt(product_id)
-    );
+    const response = await readRelatedProoductIds(parseInt(product_id));
 
-    const relatedIds = [...arrayToJsonObject['array_to_json']];
+    if (response.length === 0) {
+      res
+        .status(404)
+        .send(`Related products for Product: ${product_id} do not exist`);
+    } else {
+      const [arrayToJsonObject] = await readRelatedProoductIds(
+        parseInt(product_id)
+      );
 
-    res.status(200).send(relatedIds);
+      const relatedIds = [...arrayToJsonObject['array_to_json']];
+
+      res.status(200).send(relatedIds);
+    }
   } catch (err) {
     res.status(500).send(err);
   }

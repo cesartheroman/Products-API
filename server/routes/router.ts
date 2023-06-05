@@ -24,9 +24,12 @@ export const productsRouter = Router();
  *  schemas:
  *     Product:
  *      type: object
- *      properties:
+ *      required:
+        - product_id
+        properties:
  *          product_id:
  *              type: integer
+ *              format: int64
  *              description: Product id
  *          name:
  *              type: string

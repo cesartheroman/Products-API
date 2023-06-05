@@ -40,8 +40,7 @@ export const readProductsList = async (
       return rows;
     }
   } catch (err) {
-    console.log('Error executing query: readProductsList', err);
-    return [];
+    throw new Error('Error executing query: readProductsList');
   } finally {
     client.release();
   }
@@ -62,12 +61,9 @@ export const readProductById = async (
     const redisKey: string = redisQueries.queryProductById(product_id);
 
     const cacheValue = await redisClient.get(redisKey);
+    console.log('cacheValue:', cacheValue);
 
-    if (cacheValue) {
-      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
-
-      return cachedResults;
-    } else {
+    if (cacheValue === null || cacheValue === '[]') {
       const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
         query
       );
@@ -75,10 +71,13 @@ export const readProductById = async (
       await redisClient.set(redisKey, JSON.stringify(rows));
 
       return rows;
+    } else {
+      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
+
+      return cachedResults;
     }
   } catch (err) {
-    console.log('Error executing query: readProductById', err);
-    return [];
+    throw new Error('Error executing query: readProductById');
   } finally {
     client.release();
   }
@@ -112,8 +111,7 @@ export const readProductStyles = async (
       return rows;
     }
   } catch (err) {
-    console.log('Error executing query: readProductStyles', err);
-    return [];
+    throw new Error('Error executing query: readProductStyles');
   } finally {
     client.release();
   }
@@ -147,8 +145,7 @@ export const readRelatedProoductIds = async (
       return rows;
     }
   } catch (err) {
-    console.log('Error executing query: readRelatedProoductIds', err);
-    return [];
+    throw new Error('Error executing query: readRelatedProoductIds');
   } finally {
     client.release();
   }

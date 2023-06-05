@@ -237,7 +237,7 @@ productsRouter.post(
 
 productsRouter.put(
   '/:product_id',
-  [param('product_id').exists()isNumeric(), handleInputErrors],
+  [param('product_id').exists().isNumeric(), handleInputErrors],
   updateProduct
 );
 

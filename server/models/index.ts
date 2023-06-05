@@ -61,7 +61,6 @@ export const readProductById = async (
     const redisKey: string = redisQueries.queryProductById(product_id);
 
     const cacheValue = await redisClient.get(redisKey);
-    console.log('cacheValue:', cacheValue);
 
     if (cacheValue === null || cacheValue === '[]') {
       const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(

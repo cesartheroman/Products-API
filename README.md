@@ -21,7 +21,7 @@ However, I wanted to see how much I could push this in my deployed instance, whe
 
 If you'd like to interact with the API, you can find the deployed version, fully documented with Swagger UI here: [Products-API](http://3.142.12.173/api-docs/#/)
 
-Additionally, an extensive look into my thought process and tests can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
+Additionally, an exhaustive journaling of my thought process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
 
 # Tech Stack
 
@@ -34,10 +34,18 @@ Additionally, an extensive look into my thought process and tests can be found i
 - Nginx
 - Swagger UI
 - Artillery
+- AWS EC2
 
 # Routes built
 
 | Method | Endpoint | Purpose | Response Code |
-| :----: | :------- | :------ | :-----------: |
+| :--:   | :------- | :------ | :-----------: |
+| GET | `/products/list` | Retrieves the list of products. | 200 |
+| GET | `/products/:product_id` | Returns all product level information for a specified product by ID. | 200 |
+| GET | `/products/:product_id/styles` | Returns all the styles available for the given product by ID. | 200 |
+| GET | `/products/:product_id/related` | Returns the IDs of all the products related to the product specified by ID. | 200 |
+| PUT | `/products/:product_id` | Updates a Product by ID. | 200 |
+| POST | `/products` | Created a new Product | 201 |
+| DELETE | `/products/:product_id` | Deletes a Product by ID | 200 |
 
 # Results

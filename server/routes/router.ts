@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { query, param, body } from 'express-validator';
+import handleInputErrors from '../../utils/middleware';
 
 import {
   getProductsList,
@@ -75,7 +77,15 @@ export const productsRouter = Router();
  *         description: Internal Server Error
  */
 
-productsRouter.get('/list', getProductsList);
+productsRouter.get(
+  '/list',
+  [
+    query('page').optional().isNumeric(),
+    query('count').optional().isNumeric(),
+    handleInputErrors,
+  ],
+  getProductsList
+);
 
 /**
  * @swagger
@@ -96,7 +106,11 @@ productsRouter.get('/list', getProductsList);
  *         description: Internal Server Error
  */
 
-productsRouter.get('/:product_id', getOneProduct);
+productsRouter.get(
+  '/:product_id',
+  [param('product_id').isNumeric(), handleInputErrors],
+  getOneProduct
+);
 
 /**
  * @swagger
@@ -117,7 +131,11 @@ productsRouter.get('/:product_id', getOneProduct);
  *         description: Internal Server Error
  */
 
-productsRouter.get('/:product_id/styles', getProductStyles);
+productsRouter.get(
+  '/:product_id/styles',
+  [param('product_id').isNumeric(), handleInputErrors],
+  getProductStyles
+);
 
 /**
  * @swagger
@@ -138,7 +156,11 @@ productsRouter.get('/:product_id/styles', getProductStyles);
  *         description: Internal Server Error
  */
 
-productsRouter.get('/:product_id/related', getRelatedProductIds);
+productsRouter.get(
+  '/:product_id/related',
+  [param('product_id').isNumeric(), handleInputErrors],
+  getRelatedProductIds
+);
 
 /**
  * @swagger
@@ -169,7 +191,18 @@ productsRouter.get('/:product_id/related', getRelatedProductIds);
  *         description: Internal Server Error
  */
 
-productsRouter.post('/', createProduct);
+productsRouter.post(
+  '/',
+  [
+    body('name').isString(),
+    body('slogan').isString(),
+    body('description').isString(),
+    body('category').isString(),
+    body('default_price').isNumeric(),
+    handleInputErrors,
+  ],
+  createProduct
+);
 
 /**
  * @swagger
@@ -202,7 +235,11 @@ productsRouter.post('/', createProduct);
  *         description: Internal Server Error
  */
 
-productsRouter.put('/:product_id', updateProduct);
+productsRouter.put(
+  '/:product_id',
+  [param('product_id').isNumeric(), handleInputErrors],
+  updateProduct
+);
 
 /**
  * @swagger
@@ -223,4 +260,8 @@ productsRouter.put('/:product_id', updateProduct);
  *         description: Internal Server Error
  */
 
-productsRouter.delete('/:product_id', deleteProduct);
+productsRouter.delete(
+  '/:product_id',
+  [param('product_id').isNumeric(), handleInputErrors],
+  deleteProduct
+);

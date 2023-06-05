@@ -207,7 +207,7 @@ export const updateProductById = async (
 
     const { rows }: { rows: Product[] } = await client.query(productQuery);
 
-    await redisClient.set(redisKey, JSON.stringify(rows));
+    await redisClient.del(redisKey);
 
     return rows;
   } catch (err) {

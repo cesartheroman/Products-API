@@ -22,11 +22,11 @@ export const getProductsList = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const page = Number(req.query.page) || 1;
-  const count = Number(req.query.count) || 5;
-
   try {
-    const productsList = await readProductsList(page, count);
+    const page = parseInt(req.query.page as string) || 1;
+    const count = parseInt(req.query.count as string) || 5;
+
+    const productsList: Product[] = await readProductsList(page, count);
 
     res.status(200).send(productsList);
   } catch (err) {
@@ -39,10 +39,10 @@ export const getOneProduct = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { product_id } = req.params;
-
   try {
+    const { product_id } = req.params;
     const [JsonBuildObject] = await readProductById(parseInt(product_id));
+
     const { jsonb_build_object: product } = JsonBuildObject;
 
     if (product) {
@@ -60,9 +60,8 @@ export const getProductStyles = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { product_id } = req.params;
-
   try {
+    const { product_id } = req.params;
     const [JsonBuildObject] = await readProductStyles(parseInt(product_id));
 
     const { jsonb_build_object: productStyles } = JsonBuildObject;
@@ -78,9 +77,8 @@ export const getRelatedProductIds = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { product_id } = req.params;
-
   try {
+    const { product_id } = req.params;
     const [arrayToJsonObject] = await readRelatedProoductIds(
       parseInt(product_id)
     );

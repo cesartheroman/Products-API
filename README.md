@@ -23,7 +23,7 @@ If you'd like to interact with the API, you can find the deployed version, fully
 
 Additionally, an exhaustive journaling of my thought process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
 
-# Tech Stack
+## Tech Stack
 
 - TypeScript
 - Node.js
@@ -36,7 +36,7 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 - Artillery
 - AWS EC2
 
-# Routes built
+## Routes built
 
 | Method | Endpoint | Purpose | Response Code |
 | :--:   | :------- | :------ | :-----------: |
@@ -48,4 +48,6 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 | POST | `/products` | Created a new Product | 201 |
 | DELETE | `/products/:product_id` | Deletes a Product by ID | 200 |
 
-# Results
+## Development Process
+
+## Results

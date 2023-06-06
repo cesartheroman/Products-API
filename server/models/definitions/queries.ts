@@ -95,7 +95,7 @@ export const redisQueries = {
   FROM products
   WHERE product_id = ${product_id};`,
 
-  queryProductStyles: (product_id: number) => `SELECT jsonb_build_object(
+  queryProductStyles: (product_id: number) => `SELECT json_build_object(
           'product_id', products.product_id, 
           'results', (
             SELECT ARRAY(

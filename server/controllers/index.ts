@@ -64,7 +64,7 @@ export const getProductStyles = async (
 ): Promise<void> => {
   try {
     const { product_id } = req.params;
-    const response = await readProductById(parseInt(product_id));
+    const response = await readProductStyles(parseInt(product_id));
 
     if (response.length === 0) {
       res.status(404).send(`Product ${product_id} styles do not exist`);

@@ -4,14 +4,14 @@
 
 ### Summary
 
-The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API micro-service to be used by the front-end client. The micro-service was to be a RESTful API that would need to handle web-scale traffic.
+The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API microservice to be used by the front-end client. The microservice was to be a RESTful API that would need to handle web-scale traffic.
 
 - For the purposes of this project, web-scale traffic was defined as:
   - <2000ms of latency 
   - <1% error rate
-  - At a minimum of 100 Request/second 
+  - At a minimum of 100 requests/second (RPS)
  
-After various optimizations, this API microservice allows for real-world traffic loads of up to **500 requests/seconds** in 2 of 4 read routes, and up to **1,000 request/second** on the rest, with an error rate of 0%.
+After various optimizations, this API microservice allows for real-world traffic loads of up to **500 RPS** in 2 of 4 read routes, and up to **1,000 RPS** on the rest, with an error rate of 0%.
 
 ### System Architecture
 
@@ -79,9 +79,17 @@ The service was then incrementally optimized through indexing techniques and con
 
 However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer. 
 
-If you'd like to interact with the API, you can find the deployed version, fully documented with Swagger UI here: [Products-API](http://3.142.12.173/api-docs/#/)
+An exhaustive break-down of my daily process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
 
-Additionally, an exhaustive journaling of my thought process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
+## Performance Tuning + Optimizations
+### Client vs Pool
+
+### Indexing
+
+### Caching
+
+### Load Balancing
+
 
 ## Results Observed
 

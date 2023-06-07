@@ -102,8 +102,8 @@ As I began to think about how to design my API: thinking about the routes, how t
 
 ## Performance Tuning + Optimizations Part 1 (Locally)
 
-### Initial Benchmark (on local machine)
-An initial test using Postman on the most computationally heavy query showed a **response time of >1 minute**! With this benchmark in mind, an initial goal was to **optimize my SQL query itself down to under 50ms and a stretch goal of 10ms. **
+### Initial Benchmark
+An initial test using Postman on the most computationally heavy query showed a **response time of >1 minute**! With this benchmark in mind, an initial goal was to **optimize my SQL query itself down to under 50ms and a stretch goal of 10ms.**
 <img width="1137" alt="Screenshot 2023-06-07 at 5 00 28 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/8c879525-15ee-45c4-a37d-dc5ede74d5d3">
 
 ### Client vs Pool
@@ -150,14 +150,21 @@ After creating these 5 indexes, I saw the following performance increases:
 - **47,757% decrease in query time** on GET `/products/:product_id/related`:
 <img width="962" alt="Screenshot 2023-06-07 at 6 27 19 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/0b3f8f7a-65ce-4d64-bca4-16521d95d18a">
 
-All my queries were **WELL BELOW** the stated goal of 50ms and even faster than the stretch goal of 10ms. Now it was time to deploy and start testing on an EC2 instance!
+All my queries were **WELL BELOW** the stated goal of 50ms and even faster than the stretch goal of 10ms. Now it was time to stress test locally before I deploy and start testing on an EC2 instance!
 
-## Performance Tuning + Optimizations Part 2 (Deployment)
+### Artillery 
+Using Artillery to stress test my service, I was able to successfully go up to 100 RPS, but eventually crashed out at 1000 RPS as can be seen below:
+**100 RPS**
+<img width="1285" alt="Screenshot 2023-06-07 at 6 34 52 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/b2f9ee83-d84a-478c-8d71-cc02b75c34cb">
+
+**1000 RPS**
+<img width="1278" alt="Screenshot 2023-06-07 at 6 36 03 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/d118a1d9-7f93-49a8-bdc3-1592fa9e66af">
+
+## Performance Tuning + Optimizations Part 2 (Deployment) w/Loader.io
 
 ### Caching
 
 ### Load Balancing
-
 
 ## Results Observed
 

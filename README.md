@@ -1,4 +1,4 @@
-# Greenfield Products API Service
+# Pulsar Shop Products API Microservice
 
 The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API micro-service to be used by the front-end client. The micro-service was to be a RESTful API that would need to handle web-scale traffic and was containerized using Docker and deployed to an Amazon EC2 instance.
 

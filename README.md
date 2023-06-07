@@ -1,5 +1,7 @@
 # Pulsar Shop Products API Microservice
 
+[![Pulsar Shop Products API Microservice][project-screenshot]][project-url]
+
 The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API micro-service to be used by the front-end client. The micro-service was to be a RESTful API that would need to handle web-scale traffic and was containerized using Docker and deployed to an Amazon EC2 instance.
 
 - For the purposes of this project, web-scale traffic was defined as:
@@ -53,6 +55,8 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
+[project-screenshot]: assets/60380027/830c8a79-4bcb-4a19-a675-473ae779b361
+[project-url]: http://3.142.12.173/api-docs/
 [TypeScript-shield]: https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=TypeScript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
 [Node-shield]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white

@@ -2,12 +2,57 @@
 
 [![Pulsar Shop Products API Microservice][project-screenshot]][project-url]
 
+### Summary
+
 The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API micro-service to be used by the front-end client. The micro-service was to be a RESTful API that would need to handle web-scale traffic and was containerized using Docker and deployed to an Amazon EC2 instance.
 
 - For the purposes of this project, web-scale traffic was defined as:
   - <2000ms of latency 
   - <1% error rate
   - At a minimum of 100 Request/second 
+ 
+After various optimizations, this API microservice allows for real-world traffic loads of up to **500 requests/seconds** in 2 of 4 read routes, and up to **1,000 request/second** on the rest, with an error rate of 0%.
+
+### System Architecture
+
+
+
+## Overview
+
+### Tech Stack
+
+[![TypeScript][TypeScript-shield]][TypeScript-url]
+[![Node.js][Node-shield]][Node-url]
+[![ExpressJS][Express-shield]][Express-url]
+[![Postgres][Postgres-shield]][Postgres-url]
+[![Docker][Docker-shield]][Docker-url]
+[![Redis][Redis-shield]][Redis-url]
+[![Nginx][Nginx-shield]][Nginx-url]
+[![AWS EC2][AWS-shield]][AWS-url]
+
+I opted for 2 deployment methods for testing purposes:
+ - The first method utilized Docker-Compose to spin up containers that consisted one container each for:
+    - Node Server
+    - Postgres DB
+    - Redis DB
+    - Nginx Load-balancer
+    
+    This allowed for a fast and consistent developer experience for both local testing and production testing. Additionally, this allowed my entire service to be easily deployed to one AWS EC2 t2.micro instance. 
+ - The second method consisted of 
+
+### Routes built
+
+| Method | Endpoint | Purpose | Response Code |
+| :--:   | :------- | :------ | :-----------: |
+| GET | `/products/list` | Retrieves the list of products. | 200 |
+| GET | `/products/:product_id` | Returns all product level information for a specified product by ID. | 200 |
+| GET | `/products/:product_id/styles` | Returns all the styles available for the given product by ID. | 200 |
+| GET | `/products/:product_id/related` | Returns the IDs of all the products related to the product specified by ID. | 200 |
+| PUT | `/products/:product_id` | Updates a Product by ID. | 200 |
+| POST | `/products` | Created a new Product | 201 |
+| DELETE | `/products/:product_id` | Deletes a Product by ID | 200 |
+
+## Development Process
 
 An ETL process was required before beginning the project, as the entire product catalog consisted of 6 CSVs, all of which had to be sanitized and normalized, and represented ~5GBs worth of data or 49M+ records. The ETL process required an in-depth use of Node streams in order to:
   - Creating a readStream for each CSV, since it was impossible to open all of it in memory
@@ -24,31 +69,6 @@ However, I wanted to see how much I could push this in my deployed instance, whe
 If you'd like to interact with the API, you can find the deployed version, fully documented with Swagger UI here: [Products-API](http://3.142.12.173/api-docs/#/)
 
 Additionally, an exhaustive journaling of my thought process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
-
-## Tech Stack
-
-[![TypeScript][TypeScript-shield]][TypeScript-url]
-[![Node.js][Node-shield]][Node-url]
-[![ExpressJS][Express-shield]][Express-url]
-[![Postgres][Postgres-shield]][Postgres-url]
-[![Docker][Docker-shield]][Docker-url]
-[![Redis][Redis-shield]][Redis-url]
-[![Nginx][Nginx-shield]][Nginx-url]
-[![AWS EC2][AWS-shield]][AWS-url]
-
-## Routes built
-
-| Method | Endpoint | Purpose | Response Code |
-| :--:   | :------- | :------ | :-----------: |
-| GET | `/products/list` | Retrieves the list of products. | 200 |
-| GET | `/products/:product_id` | Returns all product level information for a specified product by ID. | 200 |
-| GET | `/products/:product_id/styles` | Returns all the styles available for the given product by ID. | 200 |
-| GET | `/products/:product_id/related` | Returns the IDs of all the products related to the product specified by ID. | 200 |
-| PUT | `/products/:product_id` | Updates a Product by ID. | 200 |
-| POST | `/products` | Created a new Product | 201 |
-| DELETE | `/products/:product_id` | Deletes a Product by ID | 200 |
-
-## Development Process
 
 ## Results
 

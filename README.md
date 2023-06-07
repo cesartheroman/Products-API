@@ -80,7 +80,7 @@ An ETL process was required before beginning the project since all of the data h
   - Pipe in a custom transformer function-- extending the [Transform class](https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamtransform) in Node in order to normalize all rows and columns
   - Pipe to the [writable Stream](https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamwritable) with my clean CSV files
 
-Once the "Extraction" and "Transformation" parts of the process were done, I needed to build out an automated way to "Load" my 5 GBs worth of data into Docker so that it would be accessible within the running instance of Postgres to then copy it into the database. Through a lot of trial and error, I found that I could utilize Docker's `/docker-entrypoint-initdb.d` entrypoint and updated my Dockerfile to load in 3 scripts: 
+Once the "Extraction" and "Transformation" parts of the process were done, I needed to build out an automated way to "Load" my ~5GBs worth of data into Docker so that it would be accessible within the running instance of Postgres to then copy it into the database. Through a lot of trial and error, I found that I could utilize Docker's `/docker-entrypoint-initdb.d` entrypoint and updated my Dockerfile to load in 3 scripts: 
   - One to init my database schema
   - Another to copy over the CSV files into their appropriate tables
   - And the last one to creat the indexes, but that was included later once I had figured out which indexes to create when I began my optimization
@@ -106,11 +106,17 @@ The service was then incrementally optimized through indexing techniques and con
 However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer. 
 
 ### Initial Benchmark (on local machine)
-
+An initial test using Postman on the most computationally heavy query showed a response time of >1 minute! With this benchmark in mind, an initial goal was to optimize my SQL query itself down to under 50ms and a stretch goal of 10ms. 
+<img width="1137" alt="Screenshot 2023-06-07 at 5 00 28 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/8c879525-15ee-45c4-a37d-dc5ede74d5d3">
 
 ### Client vs Pool
+I had intially use the `Client` class from `node-pg` since it was simple to set up and I began making one off manual tests using Postman, however, according to the [docs](https://node-postgres.com/apis/pool), by utilizing a Client vs a Pool I was in danger of quickly exhausting available, idle clients. This could have the negative effect of causing my server to timeout with an error or hang indefinitely. Additionally, when using Pg.Pool, you must release a client back to the pool after each request, thereby ensuring an available client at scale unless the machine itself is overwhelmed. 
+
+This change from using Pg.Client to Pg.Pool led to an increase of 375% in performance
+<img width="1270" alt="Screenshot 2023-06-07 at 5 33 49 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/cfa9ac81-4505-46c9-abf0-9b6520a9fd4b">
 
 ### Indexing
+
 
 ### Caching
 

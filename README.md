@@ -55,7 +55,7 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[project-screenshot]: assets/60380027/830c8a79-4bcb-4a19-a675-473ae779b361
+[project-screenshot]: imgs/projectScreenshot.png
 [project-url]: http://3.142.12.173/api-docs/
 [TypeScript-shield]: https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=TypeScript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/

@@ -25,16 +25,14 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 
 ## Tech Stack
 
-- TypeScript
-- Node.js
-- Express
-- PostgreSQL
-- Docker
-- Redis
-- Nginx
-- Swagger UI
-- Artillery
-- AWS EC2
+[![TypeScript][TypeScript-shield]][TypeScript-url]
+[![Node.js][Node-shield]][Node-url]
+[![ExpressJS][Express-shield]][Express-url]
+[![Postgres][Postgres-shield]][Postgres-url]
+[![Docker][Docker-shield]][Docker-url]
+[![Redis][Redis-shield]][Redis-url]
+[![Nginx][Nginx-shield]][Nginx-url]
+[![AWS EC2][AWS-shield]][AWS-url]
 
 ## Routes built
 
@@ -51,3 +49,23 @@ Additionally, an exhaustive journaling of my thought process, hurdles, and succe
 ## Development Process
 
 ## Results
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[TypeScript-shield]: https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=TypeScript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[Node-shield]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/
+[Express-shield]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
+[Express-url]: https://expressjs.com/
+[Nginx-shield]: https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white
+[Nginx-url]:https://nginx.org/
+[Postgres-shield]: https://img.shields.io/badge/Postgresql-0088CC?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgres-url]: https://www.postgresql.org/
+[Docker-shield]: https://img.shields.io/badge/docker-003f8c?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[Redis-shield]: https://img.shields.io/badge/redis-E50000?style=for-the-badge&logo=redis&logoColor=white
+[Redis-url]: https://redis.io/
+[AWS-shield]: https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white
+[AWS-url]: https://aws.amazon.com/ec2/

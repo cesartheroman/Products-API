@@ -13,13 +13,15 @@ The goal of this project was to work with an inherited legacy front-end e-commer
  
 After various optimizations, this API microservice allows for real-world traffic loads of up to **500 RPS** in 2 of 4 read routes, and up to **1,000 RPS** on the rest, with an error rate of 0%.
 
+An exhaustive break-down of my daily process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
+
 ### System Architecture
 
 ![system-screenshot]
 
 ## Overview
 
-### Built With
+### Tech Stack
 
 [![TypeScript][TypeScript-shield]][TypeScript-url]
 [![Node.js][Node-shield]][Node-url]
@@ -56,32 +58,56 @@ I opted for 2 deployment methods for testing purposes:
 | GET | `/products/:product_id/styles` | Returns all the styles available for the given product by ID. | 200 |
 | GET | `/products/:product_id/related` | Returns the IDs of all the products related to the product specified by ID. | 200 |
 | PUT | `/products/:product_id` | Updates a Product by ID. | 200 |
-| POST | `/products` | Created a new Product | 201 |
+| POST | `/products` | Creates a new Product | 201 |
 | DELETE | `/products/:product_id` | Deletes a Product by ID | 200 |
 
 ## Development Process
 
-### Database Choice
-
 ### Schema Design
+Since I had 6 CSV files (`products`, `features`, `styles`, `related`, `photos`, and `skus`) that made up all of my product information to work with, and I knew the data shape the front-end was expecting, the first order of business was to create a data model schema that would conform to the data shape expected by the front end. 
+
+<div align="center">
+<img width="833" alt="schema-screenshot" src="https://github.com/cesartheroman/Products-API/assets/60380027/570923fb-b029-418c-b411-9beba48fbecd">
+</div>
+
+### Database Choice
+Given that the data naturally lent itself to a relationship-driven schema, I knew choosing a Relational DB would be a good choice. I ultimately chose PostgreSQL for its powerful aggregator functions, as well as the ability to build out json objects as queries. 
 
 ### ETL Process
+An ETL process was required before beginning the project since all of the data had to be sanitized and normalized, and represented ~5GBs worth of data or 49M+ records. Opening each individual CSV to work on proved impossible, given that each CSV had anywhere from 1 million to 26million rows and easily overwhelmed the RAM on my machine. Therefore, I was forced to do in-depth research on [Node Streams](https://nodejs.org/docs/latest-v18.x/api/stream.html) in order to:
+  - Create a [readable Stream](https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamreadable) from each CSV, since it was impossible to open all of them in memory
+  - Pipe in a [CSV parser](https://csv.js.org/) with specific configurations to open and read the CSV
+  - Pipe in a custom transformer function-- extending the [Transform class](https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamtransform) in Node in order to normalize all rows and columns
+  - Pipe to the [writable Stream](https://nodejs.org/docs/latest-v18.x/api/stream.html#class-streamwritable) with my clean CSV files
 
-An ETL process was required before beginning the project, as the entire product catalog consisted of 6 CSVs, all of which had to be sanitized and normalized, and represented ~5GBs worth of data or 49M+ records. The ETL process required an in-depth use of Node streams in order to:
-  - Creating a readStream for each CSV, since it was impossible to open all of it in memory
-  - Piping in a CSV parser with specific configurations for the readStream
-  - Loading a custom Transform function-- extending the Transform class in Node in order to normalize all rows and columns
-  - Piping to a writeStream with my clean files
+Once the "Extraction" and "Transformation" parts of the process were done, I needed to build out an automated way to "Load" my 5 GBs worth of data into Docker so that it would be accessible within the running instance of Postgres to then copy it into the database. Through a lot of trial and error, I found that I could utilize Docker's `/docker-entrypoint-initdb.d` entrypoint and updated my Dockerfile to load in 3 scripts: 
+  - One to init my database schema
+  - Another to copy over the CSV files into their appropriate tables
+  - And the last one to creat the indexes, but that was included later once I had figured out which indexes to create when I began my optimization
 
-Ultimately the ETL process, along with copying all the required CSV files into the Docker container, and loading it into my Posgres instance took 9mins to fully complete. 
+With my ETL process finally complete, I was able to run my service locally using Docker-Compose!
 
+### API Design
+As I began to think about how to design my API: thinking about the routes, how to respond to those routes, and how to interact with my database, I found that I wanted to follow a layers architecture approach in my codebase. This would allow me to easily divide concerns and responsibilities into different files and directories, which would allow direction commmunication only between certain files. 
+
+<div align="center">
+  <img width="833" alt="schema-screenshot" src="https://github.com/cesartheroman/Products-API/assets/60380027/f65d8296-4e89-4194-8299-419bb8789235">
+</div>
+
+  - The application layer would handle the basic setup of my server and the connection to my routes, as well as any middlewares and swagger specs.
+  - The routes layer defines all my routes and connection to the controllers, as well as where I do input validation handling using `express-validator`.
+  - The controllers layer is where all of the service's business logic lives for each of my endpoints, decides what HTTP codes to return to the clientm and also connects to the model layer.
+  - The model layer is where all of my logic lives for interacting with my Postgres database and Redis.
+  - Finally the persistence layer is where my database lives, which is in my `/database` directory, outside of my `/server` directory, which instantiates and exports the `Pg.Pool` interface as well as the `Redis.Client` interface.
+
+## Performance Tuning + Optimizations
 The service was then incrementally optimized through indexing techniques and connection pooling while being stress-tested in development with Artillery. I found that on my local machine, I could easily top out at 100 RPS, with the required latency and error rates.
 
 However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer. 
 
-An exhaustive break-down of my daily process, hurdles, and successes can be found in my [Notion Engineering Journal](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
+### Initial Benchmark (on local machine)
 
-## Performance Tuning + Optimizations
+
 ### Client vs Pool
 
 ### Indexing
@@ -89,6 +115,8 @@ An exhaustive break-down of my daily process, hurdles, and successes can be foun
 ### Caching
 
 ### Load Balancing
+
+
 
 
 ## Results Observed

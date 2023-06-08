@@ -4,7 +4,7 @@
 
 ### Summary
 
-The goal of this project was to work with an inherited legacy front-end e-commerce web portal, and build out a specific API microservice to be used by the front-end client. The microservice was to be a RESTful API that would need to handle web-scale traffic.
+The goal of this project was to work with an inherited legacy front-end e-commerce web portal, [Pulsar Shop](https://github.com/cesartheroman/project-greenfield), and build out a specific API microservice to be used by the front-end client. The microservice was to be a RESTful API that would need to handle web-scale traffic.
 
 - For the purposes of this project, web-scale traffic was defined as:
   - <2000ms of latency 

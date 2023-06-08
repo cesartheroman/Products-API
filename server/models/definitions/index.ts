@@ -1,9 +1,10 @@
+export { pgQueries, redisQueries } from './queries';
 export {
   Features,
   Product,
+  ProductStyles,
   NewProduct,
   ArrayToJsonObject,
-  JsonBuildObjectStyles,
+  JsonBuildObjectProductStyles,
   JsonBuildObjectProduct,
 } from './interfaces';
-export { pgQueries, redisQueries } from './queries';

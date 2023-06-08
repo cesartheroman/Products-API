@@ -274,9 +274,9 @@ Using Artillery to stress test my service, I was able to successfully go up to 1
 
 ## Results Observed
 
-The service was then incrementally optimized through indexing techniques and connection pooling while being stress-tested in development with Artillery. I found that on my local machine, I could easily top out at 100 RPS, with the required latency and error rates.
+<!--However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer.
+-->
 
-However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer. 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [project-screenshot]: imgs/projectScreenshot.png

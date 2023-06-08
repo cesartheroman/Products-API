@@ -13,6 +13,8 @@ The goal of this project was to work with an inherited legacy front-end e-commer
  
 After various optimizations, this API microservice allows for real-world traffic loads of up to **500 RPS** in 2 of 4 read routes, and up to **1,000 RPS** on the rest, with an error rate of 0%.
 
+Live link to the deployed service [can be found here.][project-url]
+
 An exhaustive break-down of my daily process, hurdles, and successes can be found in my [Notion Engineering Journal.](https://gusty-empress-623.notion.site/a54b3d61feb44377a95e01cba3902c83?v=1431d6a03e6b467bb0631d990609a852)
 
 ### System Architecture

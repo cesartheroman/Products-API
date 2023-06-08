@@ -118,16 +118,16 @@ Once I had learned to properly query my database using connection pooling, I mov
 I wanted to understand what the cost of my queries were for each route:
 
 GET `/products/list`:
-<img width="1056" alt="Screenshot 2023-06-07 at 6 06 00 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/db65529f-c5df-43d3-b925-c3b35605ff11">
+<img width="1056" alt="beforeQueryPlan1" src="https://github.com/cesartheroman/Products-API/assets/60380027/c69a7105-e7e6-46b1-b96c-7a7d68eb95a5">
 
 GET `/products/:product_id`:
-<img width="1049" alt="Screenshot 2023-06-07 at 6 06 40 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/792ff2db-1eb9-4591-97b7-6d2e4752f535">
+<img width="1049" alt="beforeQueryPlan2" src="https://github.com/cesartheroman/Products-API/assets/60380027/d3c18907-0e04-4310-afe4-e3a4487e6f35">
 
 GET `/products/:product_id/styles`:
-<img width="1103" alt="Screenshot 2023-06-07 at 6 03 59 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/6e5b77f8-bc28-4133-b5e9-e96790536326">
+<img width="1103" alt="beforeQueryPlan3" src="https://github.com/cesartheroman/Products-API/assets/60380027/9bb04eda-c467-4cfc-8757-d658b4e348b6">
 
 GET `/products/:product_id/related`:
-<img width="960" alt="Screenshot 2023-06-07 at 6 07 21 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/55bb4ed5-852b-4c14-ac7f-1231c07eb24e">
+<img width="960" alt="beforeQueryPlan4" src="https://github.com/cesartheroman/Products-API/assets/60380027/7dc66ba4-2282-45d8-b231-848d0c08e251">
 
 After analyzing each of my queries, I realized that there were Sequence scans happening on all queries that weren't looking a product up by ID that were severely limiting my performance. I identified that this was happening on 5 specific relationships:
 
@@ -137,18 +137,18 @@ After analyzing each of my queries, I realized that there were Sequence scans ha
 - `skus` and `styles_id`
 - `related` and `product_id`
 
-After creating these 5 indexes, I saw the following performance increases:
+**Once I had created these 5 indexes, I saw the following performance increases:**
 - **495% decrease in query time** on GET `/products/list`:
-  <img width="1038" alt="Screenshot 2023-06-07 at 6 18 54 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/73db36d0-1de2-4f04-8a97-b625bd4bb3a8">
+<img width="1038" alt="afterQueryPlan1" src="https://github.com/cesartheroman/Products-API/assets/60380027/126d680d-fec8-4aa2-83b6-314ebd328a77">
   
 - **7,565% decrease in query time** on GET `/products/:product_id`:
-<img width="1058" alt="Screenshot 2023-06-07 at 6 19 39 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/f26cc454-a7bc-4cd2-88e6-40b9fe059a59">
+<img width="1058" alt="afterQueryPlan2" src="https://github.com/cesartheroman/Products-API/assets/60380027/7401eced-92c5-42ae-91cf-0924f0f041aa">
 
 - **1,014,070% decrease in query time** on GET `/products/:product_id/styles`:
-<img width="1153" alt="Screenshot 2023-06-07 at 6 24 54 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/5559e2bd-1e7a-48cc-8edd-70110bc211f1">
+<img width="1153" alt="afterQueryPlan3" src="https://github.com/cesartheroman/Products-API/assets/60380027/7b299dbd-e155-42c9-b0db-a3b681d44b6b">
 
 - **47,757% decrease in query time** on GET `/products/:product_id/related`:
-<img width="962" alt="Screenshot 2023-06-07 at 6 27 19 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/0b3f8f7a-65ce-4d64-bca4-16521d95d18a">
+<img width="962" alt="afterQueryPlan4" src="https://github.com/cesartheroman/Products-API/assets/60380027/f1887fac-8684-4a95-86ee-fa1795c8e767">
 
 All my queries were **WELL BELOW** the stated goal of 50ms and even faster than the stretch goal of 10ms. Now it was time to stress test locally before I deploy and start testing on an EC2 instance!
 

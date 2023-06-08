@@ -10,7 +10,7 @@ import {
   deleteProductById,
 } from '../models';
 
-import { Product } from '../models/definitions';
+import { Product, ProductStyles } from '../models/definitions';
 
 /* GET Loader.io Token */
 export const sendLoaderIoToken = (req: Request, res: Response): void => {
@@ -48,7 +48,8 @@ export const getOneProduct = async (
     } else {
       const [JsonBuildObject] = response;
 
-      const { jsonb_build_object: product } = JsonBuildObject;
+      const { jsonb_build_object: product }: { jsonb_build_object: Product } =
+        JsonBuildObject;
 
       res.status(200).send(product);
     }
@@ -70,7 +71,9 @@ export const getProductStyles = async (
       res.status(404).send(`Product ${product_id} styles do not exist`);
     } else {
       const [JsonBuildObject] = response;
-      const { jsonb_build_object: productStyles } = JsonBuildObject;
+      const {
+        jsonb_build_object: productStyles,
+      }: { jsonb_build_object: ProductStyles } = JsonBuildObject;
 
       res.status(200).send(productStyles);
     }
@@ -97,9 +100,11 @@ export const getRelatedProductIds = async (
         parseInt(product_id)
       );
 
-      const relatedIds = [...arrayToJsonObject['array_to_json']];
+      const relatedProductIds: number[] = [
+        ...arrayToJsonObject['array_to_json'],
+      ];
 
-      res.status(200).send(relatedIds);
+      res.status(200).send(relatedProductIds);
     }
   } catch (err) {
     res.status(500).send(err);

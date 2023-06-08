@@ -1,12 +1,12 @@
 import { db, redisClient } from '../../database';
 
 import {
+  pgQueries,
+  redisQueries,
   Product,
   NewProduct,
   ArrayToJsonObject,
-  pgQueries,
-  redisQueries,
-  JsonBuildObjectStyles,
+  JsonBuildObjectProductStyles,
   JsonBuildObjectProduct,
 } from './definitions';
 
@@ -26,10 +26,10 @@ export const readProductsList = async (
 
     const redisKey: string = redisQueries.queryProductsList(offset, count);
 
-    const cacheValue = await redisClient.get(redisKey);
+    const cachedValue = await redisClient.get(redisKey);
 
-    if (cacheValue) {
-      const cachedResults: Product[] = JSON.parse(cacheValue);
+    if (cachedValue) {
+      const cachedResults: Product[] = JSON.parse(cachedValue);
 
       return cachedResults;
     } else {
@@ -60,9 +60,13 @@ export const readProductById = async (
 
     const redisKey: string = redisQueries.queryProductById(product_id);
 
-    const cacheValue = await redisClient.get(redisKey);
+    const cachedValue = await redisClient.get(redisKey);
 
-    if (cacheValue === null || cacheValue === '[]') {
+    if (cachedValue) {
+      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cachedValue);
+
+      return cachedResults;
+    } else {
       const { rows }: { rows: JsonBuildObjectProduct[] } = await db.query(
         query
       );
@@ -70,10 +74,6 @@ export const readProductById = async (
       await redisClient.set(redisKey, JSON.stringify(rows));
 
       return rows;
-    } else {
-      const cachedResults: JsonBuildObjectProduct[] = JSON.parse(cacheValue);
-
-      return cachedResults;
     }
   } catch (err) {
     throw new Error('Error executing query: readProductById');
@@ -85,7 +85,7 @@ export const readProductById = async (
 /* Read Product Styles */
 export const readProductStyles = async (
   product_id: number
-): Promise<JsonBuildObjectStyles[]> => {
+): Promise<JsonBuildObjectProductStyles[]> => {
   const client = await db.connect();
 
   try {
@@ -99,11 +99,14 @@ export const readProductStyles = async (
     const cachedValue = await redisClient.get(redisKey);
 
     if (cachedValue) {
-      const cachedResults: JsonBuildObjectStyles[] = JSON.parse(cachedValue);
+      const cachedResults: JsonBuildObjectProductStyles[] =
+        JSON.parse(cachedValue);
 
       return cachedResults;
     } else {
-      const { rows }: { rows: JsonBuildObjectStyles[] } = await db.query(query);
+      const { rows }: { rows: JsonBuildObjectProductStyles[] } = await db.query(
+        query
+      );
 
       await redisClient.set(redisKey, JSON.stringify(rows));
 

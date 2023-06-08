@@ -25,15 +25,15 @@ export interface ArrayToJsonObject {
   array_to_json: number[];
 }
 
-export interface JsonBuildObjectStyles {
-  jsonb_build_object: StylesResponse;
+export interface JsonBuildObjectProductStyles {
+  jsonb_build_object: ProductStyles;
 }
 
 export interface JsonBuildObjectProduct {
   jsonb_build_object: Product;
 }
 
-interface StylesResponse {
+export interface ProductStyles {
   product_id: number;
   results: StylesAggregation[];
 }
@@ -54,9 +54,9 @@ interface Photos {
 }
 
 interface Skus {
-  L: number;
-  M: number;
-  S: number;
-  XL: number;
   XS: number;
+  S: number;
+  M: number;
+  L: number;
+  XL: number;
 }

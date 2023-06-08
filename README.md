@@ -298,7 +298,11 @@ After comparing the results from my Dockerized service on one EC2 instance vs th
   2. Therefore, I made the correct decision to horizontally scale my service through 4 EC2 t2.micro machines and this is where I saw the greatest output, easily increasing my performance throughput by **250%** from **200RPS** to **500RPS** on my 2 most computationally costly read routes (GET Products by ID and GET Product Styles) and by **133%** from **750RPS** to **1,000RPS** on my two other read routes (GET Products List and GET Related Product IDs). 
 
 ## Future Improvements
-If I had more time, I would have been interested in testing on a larger machine (t2small, medium, or even large) with more CPUs so that I could look into utilizing [Node Clusters](https://nodejs.org/docs/latest-v18.x/api/cluster.html#cluster) in order to take advantage of running my service on multiple threads. 
+If I had more time, I would have been interested in testing on a larger machine (t2small, medium, or even large) with more CPUs so that I could look into utilizing [Node Clusters](https://nodejs.org/docs/latest-v18.x/api/cluster.html#cluster) in order to take advantage of running my service on multiple threads.
+
+## Contact
+
+Cesar Roman - [LinkedIn](https://www.linkedin.com/in/cesartheroman/) - cesardroman18@gmail.com
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [project-screenshot]: imgs/projectScreenshot.png

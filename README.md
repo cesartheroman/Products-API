@@ -155,11 +155,17 @@ All my queries were **WELL BELOW** the stated goal of 50ms and even faster than 
 ### Artillery 
 Using Artillery to stress test my service, I was able to successfully go up to 100 RPS, but eventually crashed out at 1000 RPS as can be seen below:
 
-**100 RPS:**
+<details>
+<summary><b>100 RPS:</b> </summary>
+<br>
 <img width="1273" alt="Screenshot 2023-06-07 at 6 45 13 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/cbb5e605-ee6b-4849-b158-a7a69fcb7233">
+</details>
 
-**1000 RPS:**
+<details>
+<summary><b>1,000 RPS:</b> </summary>
+<br>
 <img width="1277" alt="Screenshot 2023-06-07 at 6 46 11 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e56882c6-8d1e-4841-bba6-ca4ef8fd8564">
+</details>
 
 ## Performance Tuning + Optimizations Part 2 (Deployment) w/Loader.io
 

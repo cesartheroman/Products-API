@@ -7,9 +7,9 @@
 The goal of this project was to work with an inherited legacy front-end e-commerce web portal, [Pulsar Shop](https://github.com/cesartheroman/project-greenfield), and build out a specific API microservice to be used by the front-end client. The microservice was to be a RESTful API that would need to handle web-scale traffic.
 
 - For the purposes of this project, web-scale traffic was defined as:
+  - The ability to handle a minimum of 100 requests/second (RPS)
   - <2000ms of latency 
   - <1% error rate
-  - At a minimum of 100 requests/second (RPS)
  
 After various optimizations, this API microservice allows for real-world traffic loads of up to **500 RPS** in 2 of 4 read routes, and up to **1,000 RPS** on the rest, with an error rate of 0%.
 
@@ -64,7 +64,7 @@ I opted for 2 deployment methods for testing purposes:
 ## Development Process
 
 ### Schema Design
-Since I had 6 CSV files (`products`, `features`, `styles`, `related`, `photos`, and `skus`) that made up all of my product information to work with, and I knew the data shape the front-end was expecting, the first order of business was to create a data model schema that would conform to the data shape expected by the front end. 
+Since I had 6 CSV files (`products`, `features`, `styles`, `related`, `photos`, and `skus`) that made up all of my product information to work with, and I knew the data shape the front-end was expecting, the first order of business was to create a data model that would conform to the data shape expected by the front end. 
 
 <div align="center">
 <img width="833" alt="schema-screenshot" src="https://github.com/cesartheroman/Products-API/assets/60380027/570923fb-b029-418c-b411-9beba48fbecd">
@@ -175,7 +175,7 @@ For my caching strategy, I decided to use the "lazy-loading" cache-aside strateg
 </div>
   
 ### Load Balancer
-Once I had season improved performance using my caching strategy, I decided to implement a load balancer technique as the higher RPS I pushed, the higher my latency was. Therefore I reasoned that perhaps the load on the single server was too much. I realized that Docker-Compose has a pretty nifty feature of scaling out any service I want using the `docker-compose --scale <service-name>=<# of services>` syntax to scale up my containers within my one EC2 instance.
+Once I had seen improved performance using my caching strategy, I decided to implement a load balancer technique as the higher RPS I pushed, the higher my latency was. Therefore I reasoned that perhaps the load on the single server was too much. I realized that Docker-Compose has a pretty nifty feature of scaling out any service I want by using the `docker-compose --scale <service-name>=<# of services>` syntax to scale up my containers within my one EC2 instance.
 
 For my load balancing strategy I utilized the default round-robin strategy:
 <div align="center">

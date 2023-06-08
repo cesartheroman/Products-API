@@ -168,6 +168,17 @@ Using Artillery to stress test my service, I was able to successfully go up to 1
 </details>
 
 ## Performance Tuning + Optimizations Part 2 (Deployment) w/Loader.io
+### Cache
+For my caching strategy, I decided to use the "lazy-loading" cache-aside strategy by placing my Redis cache on the same server as my Postgres DB:
+<div align="center">
+<img width="750" alt="Screenshot 2023-06-07 at 6 46 11 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/ade9a45a-050f-4935-ad9c-78480684fd79">
+  </div>
+  
+### Load Balancer
+Once I had season improved performance using my caching strategy, I decided to implement a load balancer technique as the higher RPS I pushed, the higher my latency was. Therefore I reasoned that perhaps the load on the single server was too much. I realized that Docker-Compose has a pretty nifty feature of scaling out any service I want using the `docker-compose --scale <service-name>=<# of services>` syntax to scale up my containers within my one EC2 instance.
+
+For my load balancing strategy I utilized the default round-robin strategy:
+
 
 ### One EC2 Instance running Dockerized service
 #### GET Products List:
@@ -279,6 +290,8 @@ Using Artillery to stress test my service, I was able to successfully go up to 1
 
 
 ## Results Observed
+After comparing the results from my Dockerized service on one EC2 instance vs the 4 distributed EC2 instances' performance I came away with 2 primary conclusions:
+  1. While I was easily able to handle at least 200RPS on my service implementing Redis
 
 <!--However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer.
 -->

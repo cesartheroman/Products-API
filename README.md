@@ -184,7 +184,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 
 
 ### One EC2 Instance running Dockerized service
-#### GET Products List:
+#### `GET Products List:`
 <details>
   <summary>Redis Caching Only: <b>Topped out at 750RPS + 223ms latency</b> </summary>
 <br>
@@ -198,7 +198,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 <img width="1164" alt="Screenshot 2023-06-03 at 4 00 34 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/3d1e65d2-c0db-4cba-827d-686491ea03bd">
 </details>
 
-#### GET Product by ID:
+#### `GET Product by ID:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 200RPS + 14ms latency</b> </summary>
 <br>
@@ -212,7 +212,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 
 </details>
  
-#### GET Product Styles:
+#### `GET Product Styles:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 200RPS + 17ms latency</b> </summary>
 <br>
@@ -225,7 +225,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 <img width="1188" alt="Screenshot 2023-06-03 at 4 14 08 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/0dfd1b6f-0106-4cb6-97f3-c338e12e0dff">
 </details>
 
-#### GET Related Product IDs:
+#### `GET Related Product IDs:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 750RPS + 1686ms latency</b> </summary>
 <br>
@@ -239,7 +239,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 </details>
 
 ### 4 EC2 Instances (2 servers, 1 Postgres + Redis server, 1 Nginx load balancer)
-#### GET Products List:
+#### `GET Products List:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 1,000RPS + 758ms latency</b> </summary>
 <br>
@@ -252,7 +252,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 <img width="1188" alt="Screenshot 2023-06-06 at 1 48 26 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/b6110edf-d16b-43ef-b284-d3916c90ec95">
 </details>
 
-#### GET Product by ID:
+#### `GET Product by ID:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 200RPS + 14ms latency</b> </summary>
 <br>
@@ -265,7 +265,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 <img width="1185" alt="Screenshot 2023-06-06 at 1 37 52 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e355bebd-1248-4099-b1ad-93b978486d65">
 </details>
  
-#### GET Product Styles:
+#### `GET Product Styles:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 200RPS + 16ms latency</b> </summary>
 <br>
@@ -278,7 +278,7 @@ For my load balancing strategy I utilized the default round-robin strategy:
 <img width="1200" alt="Screenshot 2023-06-06 at 2 03 31 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/932f7f2a-8c82-406a-bfeb-a8d1e908c66d">
 </details>
 
-#### GET Related Product IDs:
+#### `GET Related Product IDs:`
 <details>
 <summary>Redis Caching Only: <b>Topped out at 1,000RPS + 1837ms latency</b> </summary>
 <br>

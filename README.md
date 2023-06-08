@@ -47,7 +47,7 @@ I opted for 2 deployment methods for testing purposes:
     - 1 Nginx Load Balancing server
     - 1 PostgreSQL DB w/Redis server
     
-    This allowed for a more highly available and higher load withstanding system since I wasn't only load testing one EC2 instance, but distributing it among 4.
+    This allowed for a more highly available and higher load withstanding system since I wasn't only load testing one EC2 instance, but distributing it among 4. Ultimately this was became my official system architecture.
 
 ### Routes built
 
@@ -129,7 +129,7 @@ GET `/products/:product_id/styles`:
 GET `/products/:product_id/related`:
 <img width="960" alt="Screenshot 2023-06-07 at 6 07 21 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/55bb4ed5-852b-4c14-ac7f-1231c07eb24e">
 
-After analyzing each of my queries, I realized that there were Sequence scans happening on all queries that weren't looking a product up by ID that were severely limiting my performance. I identified that there were happening on queries with 5 relationships:
+After analyzing each of my queries, I realized that there were Sequence scans happening on all queries that weren't looking a product up by ID that were severely limiting my performance. I identified that this was happening on 5 specific relationships:
 
 - `features` and `product_id`
 - `styles` and `product_id`
@@ -154,17 +154,123 @@ All my queries were **WELL BELOW** the stated goal of 50ms and even faster than 
 
 ### Artillery 
 Using Artillery to stress test my service, I was able to successfully go up to 100 RPS, but eventually crashed out at 1000 RPS as can be seen below:
-**100 RPS**
-<img width="1285" alt="Screenshot 2023-06-07 at 6 34 52 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/b2f9ee83-d84a-478c-8d71-cc02b75c34cb">
 
-**1000 RPS**
-<img width="1278" alt="Screenshot 2023-06-07 at 6 36 03 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/d118a1d9-7f93-49a8-bdc3-1592fa9e66af">
+**100 RPS:**
+<img width="1273" alt="Screenshot 2023-06-07 at 6 45 13 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/cbb5e605-ee6b-4849-b158-a7a69fcb7233">
+
+**1000 RPS:**
+<img width="1277" alt="Screenshot 2023-06-07 at 6 46 11 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e56882c6-8d1e-4841-bba6-ca4ef8fd8564">
 
 ## Performance Tuning + Optimizations Part 2 (Deployment) w/Loader.io
 
-### Caching
+### One EC2 Instance running Dockerized service
+#### GET Products List:
+<details>
+  <summary>Redis Caching Only: <b>Topped out at 750RPS + 223ms latency</b> </summary>
+<br>
+<img width="1156" alt="Screenshot 2023-06-03 at 2 43 43 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/b7c67f08-dce7-41f0-9d0d-fcfa8bbf5e48">
 
-### Load Balancing
+</details>
+
+<details>
+<summary>Redis + Nginx: <b>Topped out at 750RPS + 1809ms latency</b> </summary>
+<br>
+<img width="1164" alt="Screenshot 2023-06-03 at 4 00 34 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/3d1e65d2-c0db-4cba-827d-686491ea03bd">
+</details>
+
+#### GET Product by ID:
+<details>
+<summary>Redis Caching Only: <b>Topped out at 200RPS + 14ms latency</b> </summary>
+<br>
+<img width="1191" alt="Screenshot 2023-06-03 at 2 52 16 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e087c581-29b5-4353-9bff-e7693e41edca">
+</details>
+
+<details>
+<summary>Redis + Nginx: <b>Topped out at 200RPS + 15ms latency</b> </summary>
+<br>
+ <img width="1179" alt="Screenshot 2023-06-03 at 4 09 59 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/057418a5-9064-4e30-a112-6444dfc3ddc3">
+
+</details>
+ 
+#### GET Product Styles:
+<details>
+<summary>Redis Caching Only: <b>Topped out at 200RPS + 17ms latency</b> </summary>
+<br>
+<img width="1180" alt="Screenshot 2023-06-03 at 3 00 09 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/6a8e417d-02cd-440f-ba6b-359605d74ff0">
+</details>
+
+<details>
+<summary>Redis + Nginx: <b>Topped out at 100RPS + 18ms latency</b> </summary>
+<br>
+<img width="1188" alt="Screenshot 2023-06-03 at 4 14 08 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/0dfd1b6f-0106-4cb6-97f3-c338e12e0dff">
+</details>
+
+#### GET Related Product IDs:
+<details>
+<summary>Redis Caching Only: <b>Topped out at 750RPS + 1686ms latency</b> </summary>
+<br>
+<img width="1184" alt="Screenshot 2023-06-03 at 3 11 16 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/ca457f8b-2fa9-4bc1-b4dc-be07cd7d925e">
+</details>
+
+<details>
+<summary>Redis + Nginx: <b>Topped out at 500PS + 1634ms latency</b> </summary>
+<br>
+<img width="1177" alt="Screenshot 2023-06-03 at 4 21 18 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/892d56db-5c85-42d7-af5a-8a8a7295f580">
+</details>
+
+### 4 EC2 Instances (2 servers, 1 Postgres + Redis server, 1 Nginx load balancer)
+#### GET Products List:
+<details>
+<summary>Redis Caching Only:</summary>
+<br>
+
+</details>
+
+<details>
+<summary>Redis + Nginx:</summary>
+<br>
+
+</details>
+
+#### GET Product by ID:
+<details>
+<summary>Redis Caching Only:</summary>
+<br>
+
+</details>
+
+<details>
+<summary>Redis + Nginx:</summary>
+<br>
+  
+</details>
+ 
+#### GET Product Styles:
+<details>
+<summary>Redis Caching Only:</summary>
+<br>
+
+</details>
+
+<details>
+<summary>Redis + Nginx:</summary>
+<br>
+
+</details>
+
+#### GET Related Product IDs:
+<details>
+<summary>Redis Caching Only:</summary>
+<br>
+
+</details>
+
+<details>
+<summary>Redis + Nginx:</summary>
+<br>
+
+</details>
+
 
 ## Results Observed
 

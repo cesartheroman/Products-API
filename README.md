@@ -221,54 +221,54 @@ Using Artillery to stress test my service, I was able to successfully go up to 1
 ### 4 EC2 Instances (2 servers, 1 Postgres + Redis server, 1 Nginx load balancer)
 #### GET Products List:
 <details>
-<summary>Redis Caching Only:</summary>
+<summary>Redis Caching Only: <b>Topped out at 1,000RPS + 758ms latency</b> </summary>
 <br>
-
+<img width="1164" alt="Screenshot 2023-06-07 at 8 15 01 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/06fd04d3-887b-40ff-826f-97d11f9152fc">
 </details>
 
 <details>
-<summary>Redis + Nginx:</summary>
+<summary>Redis + Nginx: <b>Topped out at 1,000RPS + 16ms latency</b> </summary>
 <br>
-
+<img width="1188" alt="Screenshot 2023-06-06 at 1 48 26 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/b6110edf-d16b-43ef-b284-d3916c90ec95">
 </details>
 
 #### GET Product by ID:
 <details>
-<summary>Redis Caching Only:</summary>
+<summary>Redis Caching Only: <b>Topped out at 200RPS + 14ms latency</b> </summary>
 <br>
-
+<img width="1171" alt="Screenshot 2023-06-07 at 8 15 32 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/d09c588f-7309-441a-83ef-0e42efc5a7fd">
 </details>
 
 <details>
-<summary>Redis + Nginx:</summary>
+<summary>Redis + Nginx: <b>Topped out at 500RPS + 15ms latency</b> </summary>
 <br>
-  
+<img width="1185" alt="Screenshot 2023-06-06 at 1 37 52 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e355bebd-1248-4099-b1ad-93b978486d65">
 </details>
  
 #### GET Product Styles:
 <details>
-<summary>Redis Caching Only:</summary>
+<summary>Redis Caching Only: <b>Topped out at 200RPS + 16ms latency</b> </summary>
 <br>
-
+<img width="1174" alt="Screenshot 2023-06-07 at 8 15 58 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/e0f0b0ba-d8f4-4f45-86e8-2db6c609b8f0">
 </details>
 
 <details>
-<summary>Redis + Nginx:</summary>
+<summary>Redis + Nginx: <b>Topped out at 500RPS + 19ms latency</b> </summary>
 <br>
-
+<img width="1200" alt="Screenshot 2023-06-06 at 2 03 31 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/932f7f2a-8c82-406a-bfeb-a8d1e908c66d">
 </details>
 
 #### GET Related Product IDs:
 <details>
-<summary>Redis Caching Only:</summary>
+<summary>Redis Caching Only: <b>Topped out at 1,000RPS + 1837ms latency</b> </summary>
 <br>
-
+<img width="1179" alt="Screenshot 2023-06-07 at 8 13 52 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/6a86a5b0-f48a-443e-b639-23857abee49c">
 </details>
 
 <details>
-<summary>Redis + Nginx:</summary>
+<summary>Redis + Nginx: <b>Topped out at 1,000RPS + 30ms latency</b> </summary>
 <br>
-
+<img width="1162" alt="Screenshot 2023-06-06 at 2 12 18 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/2a137a4b-7156-40f0-9ecd-b4e31eb157b7">
 </details>
 
 

@@ -172,12 +172,15 @@ Using Artillery to stress test my service, I was able to successfully go up to 1
 For my caching strategy, I decided to use the "lazy-loading" cache-aside strategy by placing my Redis cache on the same server as my Postgres DB:
 <div align="center">
 <img width="750" alt="Screenshot 2023-06-07 at 6 46 11 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/ade9a45a-050f-4935-ad9c-78480684fd79">
-  </div>
+</div>
   
 ### Load Balancer
 Once I had season improved performance using my caching strategy, I decided to implement a load balancer technique as the higher RPS I pushed, the higher my latency was. Therefore I reasoned that perhaps the load on the single server was too much. I realized that Docker-Compose has a pretty nifty feature of scaling out any service I want using the `docker-compose --scale <service-name>=<# of services>` syntax to scale up my containers within my one EC2 instance.
 
 For my load balancing strategy I utilized the default round-robin strategy:
+<div align="center">
+<img width="750" alt="Screenshot 2023-06-07 at 6 46 11 PM" src="https://github.com/cesartheroman/Products-API/assets/60380027/9a0c8cc1-a41b-4b3b-abdf-5521a1961030">
+</div>
 
 
 ### One EC2 Instance running Dockerized service
@@ -290,12 +293,12 @@ For my load balancing strategy I utilized the default round-robin strategy:
 
 
 ## Results Observed
-After comparing the results from my Dockerized service on one EC2 instance vs the 4 distributed EC2 instances' performance I came away with 2 primary conclusions:
-  1. While I was easily able to handle at least 200RPS on my service implementing Redis
+After comparing the results from my Dockerized service on one EC2 instance vs the 4 distributed EC2 instances' performance, I came away with 2 primary conclusions:
+  1. While I was easily able to handle at least 200RPS on my service implementing Redis and scaling up my Docker containers to utilize Nginx, I realized that my biggest bottleneck became my t2.micro's limited CPU. I started seeing worse results **after implementing Nginx**. While Docker made it **super easy** to deploy and even scale my service, it was too much load on the one machine.
+  2. Therefore, I made the correct decision to horizontally scale my service through 4 EC2 t2.micro machines and this is where I saw the greatest output, easily increasing my performance throughput by **250%** from **200RPS** to **500RPS** on my 2 most computationally costly read routes (GET Products by ID and GET Product Styles) and by **133%** from **750RPS** to **1,000RPS** on my two other read routes (GET Products List and GET Related Product IDs). 
 
-<!--However, I wanted to see how much I could push this in my deployed instance, where I optimized further by, ensuring my SQL quieries were performant and sargable, utilizing a cache-aside strategy with Redis, and finally using Nginx as a load balancer.
--->
-
+## Future Improvements
+If I had more time, I would have been interested in testing on a larger machine (t2small, medium, or even large) with more CPUs so that I could look into utilizing [Node Clusters](https://nodejs.org/docs/latest-v18.x/api/cluster.html#cluster) in order to take advantage of running my service on multiple threads. 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [project-screenshot]: imgs/projectScreenshot.png

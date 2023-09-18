@@ -16,5 +16,5 @@ export const swaggerSpec = {
       },
     ],
   },
-  apis: [path.join(__dirname, '../../routes/router.js')],
+  apis: [path.join(__dirname, '../../routes/router.ts')],
 };

@@ -304,6 +304,31 @@ If I had more time, I would have been interested in testing on a larger machine 
 
 Cesar Roman - [LinkedIn](https://www.linkedin.com/in/cesartheroman/) - cesardroman18@gmail.com
 
+## 🤝 Contributing
+
+### Clone the repo
+
+```bash
+git clone https://github.com/cesartheroman/products-api
+cd server
+```
+
+### Build the project
+
+```bash
+npm install
+```
+
+### Run the project
+
+```bash
+npm run server/index.ts
+```
+
+### Submit a pull request
+
+If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.
+
 <!-- MARKDOWN LINKS & IMAGES -->
 [project-screenshot]: imgs/projectScreenshot.png
 [project-url]: http://3.142.12.173/api-docs/
